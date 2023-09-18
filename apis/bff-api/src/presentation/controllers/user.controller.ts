@@ -1,17 +1,22 @@
-import { UserControllerInterface, HttpResponse, OutputUserDto, InputFindOneUserDto } from '../contracts';
+import { OutputUserDto } from '@/usecases/contracts';
+import { UserUseCase } from '@/usecases/user.usecase';
+import { HttpResponse, UserControllerInterface } from '../contracts';
+import { ok } from '../helpers';
 
 export class UserController implements UserControllerInterface {
-    async findOne(input: InputFindOneUserDto): Promise<HttpResponse<OutputUserDto>> {
+    constructor(private readonly userUseCase: UserUseCase) {}
+
+    async findOne(device: string, id: string): Promise<HttpResponse<OutputUserDto>> {
         try {
-            return null;
+            return ok(await this.userUseCase.findOne(device, id));
         } catch (e) {
             throw e;
         }
     }
 
-    async list(): Promise<HttpResponse<OutputUserDto[]>> {
+    async list(device: string): Promise<HttpResponse<OutputUserDto[]>> {
         try {
-            return null;
+            return ok(await this.userUseCase.list(device));
         } catch (e) {
             throw e;
         }
