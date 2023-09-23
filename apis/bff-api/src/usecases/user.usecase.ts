@@ -1,6 +1,6 @@
 import { IntegrationInterface } from '@/framework/integrations/contracts';
 import { AppError } from '@/infra/main/errors';
-import { getUserCollectionData, getUserSingleData } from './adapters';
+import { parseUserOutputDtoCollection, parseUserOutputDto } from './adapters';
 import { Device } from './contracts';
 import { UserOutputDto, UserUseCaseInterface } from './contracts/user';
 
@@ -15,7 +15,7 @@ export class UserUseCase implements UserUseCaseInterface {
                 throw new AppError('User not found', 204);
             }
 
-            return getUserSingleData(device, existsUserExternal);
+            return parseUserOutputDto(device, existsUserExternal);
         } catch (e) {
             throw e;
         }
@@ -29,19 +29,19 @@ export class UserUseCase implements UserUseCaseInterface {
                 throw new AppError('User not found', 204);
             }
 
-            return getUserSingleData(device, existsUserExternal);
+            return parseUserOutputDto(device, existsUserExternal);
         } catch (e) {
             throw e;
         }
     }
 
     async list(device: Device): Promise<UserOutputDto[]> {
-        const existsUserExternal = await this.integration.users.list();
+        const existsUsersExternals = await this.integration.users.list();
 
-        if (!existsUserExternal.length) {
+        if (!existsUsersExternals.length) {
             throw new AppError('User not found', 204);
         }
 
-        return getUserCollectionData(device, existsUserExternal);
+        return parseUserOutputDtoCollection(device, existsUsersExternals);
     }
 }
