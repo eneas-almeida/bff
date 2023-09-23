@@ -8,7 +8,7 @@ export const getUserSingleData = (device: Device, data: UserIntegrationOutputDto
         [Device.MOBILE]: () => toMobile(data),
     };
 
-    return map[device] ? map[device]() : map['DESKTOP']();
+    return (map[device] || map['DESKTOP'])();
 };
 
 export const getUserCollectionData = (device: Device, data: UserIntegrationOutputDto[]): UserOutputDto[] => {
@@ -17,5 +17,5 @@ export const getUserCollectionData = (device: Device, data: UserIntegrationOutpu
         [Device.MOBILE]: () => toMobileCollection(data),
     };
 
-    return map[device] ? map[device]() : map['DESKTOP']();
+    return (map[device] || map['DESKTOP'])();
 };

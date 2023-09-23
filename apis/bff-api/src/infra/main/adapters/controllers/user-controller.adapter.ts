@@ -1,15 +1,10 @@
-import { Request, Response } from 'express';
 import { UserControllerInterface } from '@/presentation/contracts';
-import { Device } from '@/usecases/contracts';
-
-const dataFindOne = (headers: any, params: any) => ({
-    device: headers.device,
-    id: params.id,
-});
+import { Request, Response } from 'express';
+import { dataFindOneByDocument, dataFindOneById, dataList } from '../../helpers';
 
 export const findOneUserByIdControllerAdapter = (controller: UserControllerInterface) => {
     return async (req: Request, res: Response) => {
-        const { device, id } = dataFindOne(req.headers, req.params);
+        const { device, id } = dataFindOneById(req.headers, req.params);
 
         const httpResponse = await controller.findOneById(device, id);
 
@@ -19,9 +14,9 @@ export const findOneUserByIdControllerAdapter = (controller: UserControllerInter
 
 export const findOneUserByDocumentControllerAdapter = (controller: UserControllerInterface) => {
     return async (req: Request, res: Response) => {
-        const { device, id } = dataFindOne(req.headers, req.params);
+        const { device, document } = dataFindOneByDocument(req.headers, req.params);
 
-        const httpResponse = await controller.findOneByDocument(device, id);
+        const httpResponse = await controller.findOneByDocument(device, document);
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };
@@ -29,9 +24,9 @@ export const findOneUserByDocumentControllerAdapter = (controller: UserControlle
 
 export const listUsersControllerAdapter = (controller: UserControllerInterface) => {
     return async (req: Request, res: Response) => {
-        const { device } = req.headers;
+        const { device } = dataList(req.headers);
 
-        const httpResponse = await controller.list(device as Device);
+        const httpResponse = await controller.list(device);
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };

@@ -5,8 +5,6 @@ export const healthzGetControllerAdapter = (controller: HealthzControllerInterfa
     return async (_req: Request, res: Response) => {
         const httpResponse = await controller.healthz();
 
-        console.log('akee!!!');
-
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };
 };
