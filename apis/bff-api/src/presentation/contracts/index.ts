@@ -1,4 +1,4 @@
-import { OutputHealthzDto, OutputUserDto } from '@/usecases/contracts';
+import { Device, HealthzOutputDto, UserOutputDto } from '@/usecases/contracts';
 
 export type HttpResponse<T = any> = {
     statusCode: number;
@@ -6,10 +6,10 @@ export type HttpResponse<T = any> = {
 };
 
 export interface HealthzControllerInterface {
-    healthz: () => Promise<HttpResponse<OutputHealthzDto>>;
+    healthz: () => Promise<HttpResponse<HealthzOutputDto>>;
 }
 
 export interface UserControllerInterface {
-    findOne: (device: string, id: string) => Promise<HttpResponse<OutputUserDto>>;
-    list: (device: string) => Promise<HttpResponse<OutputUserDto[]>>;
+    findOne: (device: Device, userId: string) => Promise<HttpResponse<UserOutputDto>>;
+    list: (device: Device) => Promise<HttpResponse<UserOutputDto[]>>;
 }

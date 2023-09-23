@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { UserControllerInterface } from '@/presentation/contracts';
+import { Device } from '@/usecases/contracts';
 
 const dataFindOne = (headers: any, params: any) => ({
     device: headers.device,
@@ -20,7 +21,7 @@ export const listUsersControllerAdapter = (controller: UserControllerInterface) 
     return async (req: Request, res: Response) => {
         const { device } = req.headers;
 
-        const httpResponse = await controller.list(device as string);
+        const httpResponse = await controller.list(device as Device);
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };
