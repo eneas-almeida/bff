@@ -14,7 +14,7 @@ export const routesConfig = async (app: Express): Promise<void> => {
         const filePath = join(__dirname, '../routes');
 
         for (const fileName of readdirSync(filePath)) {
-            (await import(`../routes/${fileName}`)).default(router);
+            await (await import(`../routes/${fileName}`)).default(router);
         }
     } catch (e) {
         throw e;

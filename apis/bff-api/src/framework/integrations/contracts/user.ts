@@ -1,12 +1,13 @@
 export interface UserIntegrationOutputDto {
     id: string;
     name: string;
-    document: number;
+    document: string;
     createdAt: Date;
     updatedAt: Date;
 }
 
 export interface UserIntegrationInterface {
-    findOne(userId: string): Promise<UserIntegrationOutputDto>;
+    findOneById(id: string): Promise<UserIntegrationOutputDto>;
+    findOneByDocument(id: string): Promise<UserIntegrationOutputDto>;
     list(): Promise<UserIntegrationOutputDto[]>;
 }

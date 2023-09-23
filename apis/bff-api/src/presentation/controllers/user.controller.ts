@@ -6,9 +6,17 @@ import { ok } from '../helpers';
 export class UserController implements UserControllerInterface {
     constructor(private readonly userUseCase: UserUseCase) {}
 
-    async findOne(device: Device, userId: string): Promise<HttpResponse<UserOutputDto>> {
+    async findOneById(device: Device, id: string): Promise<HttpResponse<UserOutputDto>> {
         try {
-            return ok(await this.userUseCase.findOne(device, userId));
+            return ok(await this.userUseCase.findOneById(device, id));
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async findOneByDocument(device: Device, document: string): Promise<HttpResponse<UserOutputDto>> {
+        try {
+            return ok(await this.userUseCase.findOneByDocument(device, document));
         } catch (e) {
             throw e;
         }

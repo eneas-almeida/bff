@@ -22,8 +22,8 @@ export class MainBuild {
         return this;
     }
 
-    initRoutes() {
-        routesConfig(app);
+    async initRoutes() {
+        await routesConfig(app);
         return this;
     }
 

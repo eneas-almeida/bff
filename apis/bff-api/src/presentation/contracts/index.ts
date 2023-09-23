@@ -10,6 +10,7 @@ export interface HealthzControllerInterface {
 }
 
 export interface UserControllerInterface {
-    findOne: (device: Device, userId: string) => Promise<HttpResponse<UserOutputDto>>;
+    findOneById: (device: Device, id: string) => Promise<HttpResponse<UserOutputDto>>;
+    findOneByDocument: (device: Device, document: string) => Promise<HttpResponse<UserOutputDto>>;
     list: (device: Device) => Promise<HttpResponse<UserOutputDto[]>>;
 }

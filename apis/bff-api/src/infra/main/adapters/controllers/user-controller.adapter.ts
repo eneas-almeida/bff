@@ -7,11 +7,21 @@ const dataFindOne = (headers: any, params: any) => ({
     id: params.id,
 });
 
-export const findOneUserControllerAdapter = (controller: UserControllerInterface) => {
+export const findOneUserByIdControllerAdapter = (controller: UserControllerInterface) => {
     return async (req: Request, res: Response) => {
         const { device, id } = dataFindOne(req.headers, req.params);
 
-        const httpResponse = await controller.findOne(device, id);
+        const httpResponse = await controller.findOneById(device, id);
+
+        res.status(httpResponse.statusCode).json(httpResponse.body);
+    };
+};
+
+export const findOneUserByDocumentControllerAdapter = (controller: UserControllerInterface) => {
+    return async (req: Request, res: Response) => {
+        const { device, id } = dataFindOne(req.headers, req.params);
+
+        const httpResponse = await controller.findOneByDocument(device, id);
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };
