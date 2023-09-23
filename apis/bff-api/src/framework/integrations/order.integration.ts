@@ -4,11 +4,11 @@ import { OrderIntegrationInterface, OrderIntegrationOutputDto } from './contract
 export class OrderIntegration implements OrderIntegrationInterface {
     constructor(private readonly axiosInstance: AxiosInstance) {}
 
-    findOneById(id: string): Promise<OrderIntegrationOutputDto> {
-        throw new Error('Method not implemented.');
+    async findOneById(id: string): Promise<OrderIntegrationOutputDto | null> {
+        return null;
     }
 
-    list(): Promise<OrderIntegrationOutputDto[]> {
-        throw new Error('Method not implemented.');
+    async list(): Promise<OrderIntegrationOutputDto[]> {
+        return [];
     }
 }

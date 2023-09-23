@@ -4,16 +4,15 @@ import { UserIntegrationInterface, UserIntegrationOutputDto } from './contracts'
 export class UserIntegration implements UserIntegrationInterface {
     constructor(private readonly axiosInstrance: AxiosInstance) {}
 
-    findOneById(id: string): Promise<UserIntegrationOutputDto> {
-        console.log('chegaaaaa aki!!!!');
-        throw new Error('Method not implemented.');
+    async findOneById(id: string): Promise<UserIntegrationOutputDto | null> {
+        return null;
     }
 
-    findOneByDocument(document: string): Promise<UserIntegrationOutputDto> {
-        throw new Error('Method not implemented.');
+    async findOneByDocument(document: string): Promise<UserIntegrationOutputDto | null> {
+        return null;
     }
 
-    list(): Promise<UserIntegrationOutputDto[]> {
-        throw new Error('Method not implemented.');
+    async list(): Promise<UserIntegrationOutputDto[]> {
+        return [];
     }
 }

@@ -4,6 +4,6 @@ export interface OrderIntegrationOutputDto {
 }
 
 export interface OrderIntegrationInterface {
-    findOneById(orderId: string): Promise<OrderIntegrationOutputDto>;
+    findOneById(orderId: string): Promise<OrderIntegrationOutputDto | null>;
     list(): Promise<OrderIntegrationOutputDto[]>;
 }

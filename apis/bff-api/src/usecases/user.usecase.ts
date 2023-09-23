@@ -9,13 +9,13 @@ export class UserUseCase implements UserUseCaseInterface {
 
     async findOneById(device: Device, id: string): Promise<UserOutputDto> {
         try {
-            const existsUser = await this.integration.users.findOneById(id);
+            const existsUserExternal = await this.integration.users.findOneById(id);
 
-            if (!existsUser) {
+            if (!existsUserExternal) {
                 throw new AppError('User not found', 204);
             }
 
-            return getUserSingleData(device, existsUser);
+            return getUserSingleData(device, existsUserExternal);
         } catch (e) {
             throw e;
         }
@@ -23,25 +23,25 @@ export class UserUseCase implements UserUseCaseInterface {
 
     async findOneByDocument(device: Device, document: string): Promise<UserOutputDto> {
         try {
-            const existsUser = await this.integration.users.findOneByDocument(document);
+            const existsUserExternal = await this.integration.users.findOneByDocument(document);
 
-            if (!existsUser) {
+            if (!existsUserExternal) {
                 throw new AppError('User not found', 204);
             }
 
-            return getUserSingleData(device, existsUser);
+            return getUserSingleData(device, existsUserExternal);
         } catch (e) {
             throw e;
         }
     }
 
     async list(device: Device): Promise<UserOutputDto[]> {
-        const existsUser = await this.integration.users.list();
+        const existsUserExternal = await this.integration.users.list();
 
-        if (!existsUser.length) {
+        if (!existsUserExternal.length) {
             throw new AppError('User not found', 204);
         }
 
-        return getUserCollectionData(device, existsUser);
+        return getUserCollectionData(device, existsUserExternal);
     }
 }

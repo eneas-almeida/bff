@@ -7,7 +7,7 @@ export interface UserIntegrationOutputDto {
 }
 
 export interface UserIntegrationInterface {
-    findOneById(id: string): Promise<UserIntegrationOutputDto>;
-    findOneByDocument(id: string): Promise<UserIntegrationOutputDto>;
+    findOneById(id: string): Promise<UserIntegrationOutputDto | null>;
+    findOneByDocument(id: string): Promise<UserIntegrationOutputDto | null>;
     list(): Promise<UserIntegrationOutputDto[]>;
 }
