@@ -7,7 +7,7 @@ export const dataFindOneById = (headers: any, params: any) => ({
 
 export const dataFindOneByEmail = (headers: any, params: any) => ({
     device: deviceAdapter(headers.device),
-    document: params.document,
+    email: params.email,
 });
 
 export const dataList = (headers: any) => ({

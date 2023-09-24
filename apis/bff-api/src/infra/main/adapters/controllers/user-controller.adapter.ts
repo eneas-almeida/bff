@@ -14,9 +14,9 @@ export const findOneUserByIdControllerAdapter = (controller: UserControllerInter
 
 export const findOneUserByEmailControllerAdapter = (controller: UserControllerInterface) => {
     return async (req: Request, res: Response) => {
-        const { device, document } = dataFindOneByEmail(req.headers, req.params);
+        const { device, email } = dataFindOneByEmail(req.headers, req.params);
 
-        const httpResponse = await controller.findOneByEmail(device, document);
+        const httpResponse = await controller.findOneByEmail(device, email);
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };
