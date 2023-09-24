@@ -36,7 +36,6 @@ export class UserUseCase implements UserUseCaseInterface {
     }
 
     async list(device: Device): Promise<UserOutputDto[]> {
-        console.log('listxxxxxxxxxxxxxxxxxxxxxxx');
         const existsUsersExternals = await this.integration.users.list();
 
         if (!existsUsersExternals.length) {
