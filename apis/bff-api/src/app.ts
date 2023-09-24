@@ -7,9 +7,7 @@ mainBuild
     .initEnvs()
     .initLogger()
     .initRoutes()
-    .then((res) => {
-        res.initErrorHandler().initServer();
-    })
+    .then((res) => res.initErrorHandler().initServer())
     .catch((e) => {
         throw new Error(e);
     });
