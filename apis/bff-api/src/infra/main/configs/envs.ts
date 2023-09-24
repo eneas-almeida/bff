@@ -51,6 +51,14 @@ export const envs = {
             ? parseTo(env.AGENTKEEPALIVE_FREE_SOCKET_TIMEOUT, Type.NUMBER)
             : null,
     },
+    externalApi: {
+        user: {
+            baseUrl: env.EXTERNAL_API_USER_BASE_URL,
+        },
+        photo: {
+            baseUrl: env.EXTERNAL_API_PHOTO_BASE_URL,
+        },
+    },
 };
 
 function flatten(obj: Record<string, any>, parentKey = ''): Record<string, any> {

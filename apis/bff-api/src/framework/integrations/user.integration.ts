@@ -1,7 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { UserIntegrationInterface, UserIntegrationOutputDto } from './contracts';
-import { IntegrationError } from './errors';
+import { BadRequestError, IntegrationError } from './errors';
 import { toUserIntegrationOutputDto, toUserIntegrationOutputDtoCollection } from './mappers';
+import { envs } from '@/infra/main/configs/envs';
 
 const ENDPOINTS = {
     users: '/users',
@@ -11,7 +12,7 @@ export class UserIntegration implements UserIntegrationInterface {
     constructor(private readonly axios: AxiosInstance) {}
 
     async findAll(): Promise<UserIntegrationOutputDto[]> {
-        const baseUrl = 'https://jsonplaceholder.typicode.com';
+        const { baseUrl } = envs.externalApi.user;
 
         const endpoint = `${baseUrl}${ENDPOINTS.users}`;
 
@@ -20,6 +21,10 @@ export class UserIntegration implements UserIntegrationInterface {
 
             return data ? toUserIntegrationOutputDtoCollection(data) : [];
         } catch (e) {
+            if (e.code && e.code === 'ERR_BAD_REQUEST') {
+                throw new BadRequestError(e.message);
+            }
+
             const { status, statusText } = e.response;
 
             throw new IntegrationError(statusText, status);
@@ -27,7 +32,7 @@ export class UserIntegration implements UserIntegrationInterface {
     }
 
     async findOneByEmail(email: string): Promise<UserIntegrationOutputDto | null> {
-        const baseUrl = 'https://jsonplaceholder.typicode.com';
+        const { baseUrl } = envs.externalApi.user;
 
         const endpoint = `${baseUrl}${ENDPOINTS.users}`;
 
@@ -38,6 +43,10 @@ export class UserIntegration implements UserIntegrationInterface {
 
             return existsUser ? toUserIntegrationOutputDto(existsUser) : null;
         } catch (e) {
+            if (e.code && e.code === 'ERR_BAD_REQUEST') {
+                throw new BadRequestError(e.message);
+            }
+
             const { status, statusText } = e.response;
 
             throw new IntegrationError(statusText, status);
@@ -45,15 +54,21 @@ export class UserIntegration implements UserIntegrationInterface {
     }
 
     async findOneById(id: number): Promise<UserIntegrationOutputDto | null> {
-        const baseUrl = 'https://jsonplaceholder.typicode.com';
+        const { baseUrl } = envs.externalApi.user;
 
-        const endpoint = `${baseUrl}${ENDPOINTS.users}/${id}`;
+        const endpoint = `${baseUrl}${ENDPOINTS.users}/id/${id}`;
+
+        console.log(endpoint);
 
         try {
             const { data } = await this.axios.get(endpoint);
 
             return data ? toUserIntegrationOutputDto(data) : null;
         } catch (e) {
+            if (e.code && e.code === 'ERR_BAD_REQUEST') {
+                throw new BadRequestError(e.message);
+            }
+
             const { status, statusText } = e.response;
 
             if (status === 404) return null;
