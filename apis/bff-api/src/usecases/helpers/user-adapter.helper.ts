@@ -2,7 +2,7 @@ import { UserIntegrationOutputDto } from '@/framework/integrations/contracts';
 import { toDesktopCollection, toMobileCollection, toDesktop, toMobile } from '@/infra/mappers/user.mapper';
 import { Device, DeviceMap, UserOutputDto } from '../contracts';
 
-export const parseUserOutputDto = (device: Device, data: UserIntegrationOutputDto): UserOutputDto => {
+export const userOutputDtoAdapter = (device: Device, data: UserIntegrationOutputDto): UserOutputDto => {
     const map: DeviceMap<UserOutputDto> = {
         [Device.DESKTOP]: () => toDesktop(data),
         [Device.MOBILE]: () => toMobile(data),
@@ -11,7 +11,7 @@ export const parseUserOutputDto = (device: Device, data: UserIntegrationOutputDt
     return (map[device] || map['DESKTOP'])();
 };
 
-export const parseUserOutputDtoCollection = (
+export const userOutputDtoCollectionAdapter = (
     device: Device,
     data: UserIntegrationOutputDto[]
 ): UserOutputDto[] => {

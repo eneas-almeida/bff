@@ -1,6 +1,6 @@
 import { IntegrationInterface } from '@/framework/integrations/contracts';
 import { AppError } from '@/infra/main/errors';
-import { parseUserOutputDtoCollection, parseUserOutputDto } from './adapters';
+import { userOutputDtoCollectionAdapter, userOutputDtoAdapter } from './helpers';
 import { Device } from './contracts';
 import { UserOutputDto, UserUseCaseInterface } from './contracts/user';
 
@@ -15,7 +15,7 @@ export class UserUseCase implements UserUseCaseInterface {
                 throw new AppError('User not found', 204);
             }
 
-            return parseUserOutputDto(device, existsUserExternal);
+            return userOutputDtoAdapter(device, existsUserExternal);
         } catch (e) {
             throw e;
         }
@@ -29,7 +29,7 @@ export class UserUseCase implements UserUseCaseInterface {
                 throw new AppError('User not found', 204);
             }
 
-            return parseUserOutputDto(device, existsUserExternal);
+            return userOutputDtoAdapter(device, existsUserExternal);
         } catch (e) {
             throw e;
         }
@@ -42,6 +42,6 @@ export class UserUseCase implements UserUseCaseInterface {
             throw new AppError('User not found', 204);
         }
 
-        return parseUserOutputDtoCollection(device, existsUsersExternals);
+        return userOutputDtoCollectionAdapter(device, existsUsersExternals);
     }
 }
