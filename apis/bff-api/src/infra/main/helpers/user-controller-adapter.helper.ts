@@ -5,7 +5,7 @@ export const dataFindOneById = (headers: any, params: any) => ({
     id: params.id,
 });
 
-export const dataFindOneByDocument = (headers: any, params: any) => ({
+export const dataFindOneByEmail = (headers: any, params: any) => ({
     device: deviceAdapter(headers.device),
     document: params.document,
 });

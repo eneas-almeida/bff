@@ -1,23 +1,46 @@
 import { Device } from './device';
 
-export interface UserDesktopOutputDto {
-    id: string;
-    document: string;
+interface UserGeo {
+    lat: string;
+    lng: string;
+}
+
+interface UserAddress {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: UserGeo;
+}
+
+interface UserCompany {
     name: string;
-    createdAt: Date;
-    updatedAt: Date;
+    catchPhrase: string;
+    bs: string;
+}
+
+export interface UserDesktopOutputDto {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    address: UserAddress;
+    company: UserCompany;
+    phone: string;
+    website: string;
 }
 
 export interface UserMobileOutputDto {
-    id: string;
+    id: number;
     name: string;
-    createdAt: Date;
+    username: string;
+    email: string;
 }
 
 export type UserOutputDto = UserDesktopOutputDto | UserMobileOutputDto;
 
 export interface UserUseCaseInterface {
-    findOneById: (device: Device, id: string) => Promise<UserOutputDto>;
-    findOneByDocument: (device: string, document: string) => Promise<UserOutputDto>;
+    findOneById: (device: Device, id: number) => Promise<UserOutputDto>;
+    findOneByEmail: (device: string, email: string) => Promise<UserOutputDto>;
     list: (device: string) => Promise<UserOutputDto[]>;
 }

@@ -1,2 +1,2 @@
-export * from './order.integration';
+export * from './photo.integration';
 export * from './user.integration';

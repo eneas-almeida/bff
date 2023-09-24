@@ -1,5 +1,5 @@
-import { OrderIntegration, UserIntegration } from '@/framework/integrations';
-import { IntegrationInterface } from '@/framework/integrations/contracts';
+import { UserIntegration, PhotoIntegration } from '@/framework/integrations';
+import { GlobalIntegrationInterface } from '@/framework/integrations/contracts';
 import { AxiosHttpClient } from '@/infra/httpclients';
 import { UserControllerInterface } from '@/presentation/contracts';
 import { UserController } from '@/presentation/controllers';
@@ -8,12 +8,12 @@ import { UserUseCase } from '@/usecases/user.usecase';
 export const MakeUserController = async (): Promise<UserControllerInterface> => {
     const axiosInstance = new AxiosHttpClient().getInstance();
 
-    const integration: IntegrationInterface = {
-        orders: new OrderIntegration(axiosInstance),
+    const globalIntegration: GlobalIntegrationInterface = {
         users: new UserIntegration(axiosInstance),
+        photos: new PhotoIntegration(axiosInstance),
     };
 
-    const userUseCase = new UserUseCase(integration);
+    const userUseCase = new UserUseCase(globalIntegration);
 
     return new UserController(userUseCase);
 };

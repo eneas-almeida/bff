@@ -4,15 +4,32 @@ import { UserOutputDto } from '@/usecases/contracts';
 export const toDesktop = (data: UserIntegrationOutputDto): UserOutputDto => ({
     id: data.id,
     name: data.name,
-    document: data.document,
-    createdAt: data.createdAt,
-    updatedAt: data.updatedAt,
+    username: data.username,
+    email: data.email,
+    address: {
+        street: data.address.street,
+        suite: data.address.suite,
+        city: data.address.city,
+        zipcode: data.address.zipcode,
+        geo: {
+            lat: data.address.geo.lat,
+            lng: data.address.geo.lng,
+        },
+    },
+    company: {
+        name: data.company.name,
+        catchPhrase: data.company.catchPhrase,
+        bs: data.company.bs,
+    },
+    phone: data.phone,
+    website: data.website,
 });
 
 export const toMobile = (data: UserIntegrationOutputDto): UserOutputDto => ({
     id: data.id,
     name: data.name,
-    createdAt: data.createdAt,
+    username: data.username,
+    email: data.email,
 });
 
 export const toDesktopCollection = (data: UserIntegrationOutputDto[]): UserOutputDto[] => {

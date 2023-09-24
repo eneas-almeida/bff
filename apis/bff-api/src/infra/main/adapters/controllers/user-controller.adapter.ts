@@ -1,6 +1,6 @@
 import { UserControllerInterface } from '@/presentation/contracts';
 import { Request, Response } from 'express';
-import { dataFindOneByDocument, dataFindOneById, dataList } from '../../helpers';
+import { dataFindOneByEmail, dataFindOneById, dataList } from '../../helpers';
 
 export const findOneUserByIdControllerAdapter = (controller: UserControllerInterface) => {
     return async (req: Request, res: Response) => {
@@ -12,11 +12,11 @@ export const findOneUserByIdControllerAdapter = (controller: UserControllerInter
     };
 };
 
-export const findOneUserByDocumentControllerAdapter = (controller: UserControllerInterface) => {
+export const findOneUserByEmailControllerAdapter = (controller: UserControllerInterface) => {
     return async (req: Request, res: Response) => {
-        const { device, document } = dataFindOneByDocument(req.headers, req.params);
+        const { device, document } = dataFindOneByEmail(req.headers, req.params);
 
-        const httpResponse = await controller.findOneByDocument(device, document);
+        const httpResponse = await controller.findOneByEmail(device, document);
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };

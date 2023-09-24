@@ -1,7 +1,7 @@
-import { OrderIntegrationInterface } from './order';
+import { PhotoIntegrationInterface } from './photo';
 import { UserIntegrationInterface } from './user';
 
-export interface IntegrationInterface {
+export interface GlobalIntegrationInterface {
     users?: UserIntegrationInterface;
-    orders?: OrderIntegrationInterface;
+    photos?: PhotoIntegrationInterface;
 }

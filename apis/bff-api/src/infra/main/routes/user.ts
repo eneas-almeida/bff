@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { MakeUserController } from '../containers/user-controller.container';
 import { envs } from '../configs';
 import {
-    findOneUserByDocumentControllerAdapter,
+    findOneUserByEmailControllerAdapter,
     findOneUserByIdControllerAdapter,
     listUsersControllerAdapter,
 } from '../adapters/controllers';
@@ -13,7 +13,7 @@ export default async (router: Router): Promise<void> => {
     const basePath = 'users';
 
     router.get(`/${basePath}/id/:id`, findOneUserByIdControllerAdapter(makeUserController));
-    router.get(`/${basePath}/document/:document`, findOneUserByDocumentControllerAdapter(makeUserController));
+    router.get(`/${basePath}/document/:document`, findOneUserByEmailControllerAdapter(makeUserController));
     router.get(`/${basePath}`, listUsersControllerAdapter(makeUserController));
 
     const baseRoute = `${envs.api.version}/${basePath}`;

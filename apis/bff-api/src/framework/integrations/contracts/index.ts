@@ -1,3 +1,3 @@
 export * from './global';
-export * from './order';
+export * from './photo';
 export * from './user';
