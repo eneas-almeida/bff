@@ -1,5 +1,10 @@
 import { UserIntegrationOutputDto } from '@/framework/integrations/contracts';
-import { toDesktopCollection, toMobileCollection, toDesktop, toMobile } from '@/infra/mappers/user.mapper';
+import {
+    toDesktop,
+    toDesktopCollection,
+    toMobile,
+    toMobileCollection,
+} from '@/infra/main/mappers/user.mapper';
 import { Device, DeviceMap, UserOutputDto } from '../contracts';
 
 export const userOutputDtoAdapter = (device: Device, data: UserIntegrationOutputDto): UserOutputDto => {
