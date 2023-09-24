@@ -40,7 +40,7 @@ export interface UserMobileOutputDto {
 export type UserOutputDto = UserDesktopOutputDto | UserMobileOutputDto;
 
 export interface UserUseCaseInterface {
-    findOneById: (device: Device, id: number) => Promise<UserOutputDto>;
+    findAll: (device: Device) => Promise<UserOutputDto[]>;
     findOneByEmail: (device: Device, email: string) => Promise<UserOutputDto>;
-    list: (device: Device) => Promise<UserOutputDto[]>;
+    findOneById: (device: Device, id: number) => Promise<UserOutputDto>;
 }

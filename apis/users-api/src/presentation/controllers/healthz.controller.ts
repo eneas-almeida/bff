@@ -4,7 +4,7 @@ import { HealthzControllerInterface, HttpResponse } from '../contracts';
 import { ok } from '../helpers';
 
 export class HealthzController implements HealthzControllerInterface {
-    async execute(): Promise<HttpResponse<HealthzOutputDto>> {
+    async handle(): Promise<HttpResponse<HealthzOutputDto>> {
         try {
             return ok({ name, version });
         } catch (e) {

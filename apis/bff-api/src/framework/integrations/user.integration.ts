@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { UserIntegrationInterface, UserIntegrationOutputDto } from './contracts';
 import { IntegrationError } from './errors';
-import { toUserOutputDto, toUserOutputDtoCollection } from './mappers';
+import { toUserIntegrationOutputDto, toUserIntegrationOutputDtoCollection } from './mappers';
 
 const ENDPOINTS = {
     users: '/users',
@@ -10,19 +10,17 @@ const ENDPOINTS = {
 export class UserIntegration implements UserIntegrationInterface {
     constructor(private readonly axios: AxiosInstance) {}
 
-    async findOneById(id: number): Promise<UserIntegrationOutputDto | null> {
+    async findAll(): Promise<UserIntegrationOutputDto[]> {
         const baseUrl = 'https://jsonplaceholder.typicode.com';
 
-        const endpoint = `${baseUrl}${ENDPOINTS.users}/${id}`;
+        const endpoint = `${baseUrl}${ENDPOINTS.users}`;
 
         try {
             const { data } = await this.axios.get(endpoint);
 
-            return data ? toUserOutputDto(data) : null;
+            return data ? toUserIntegrationOutputDtoCollection(data) : [];
         } catch (e) {
             const { status, statusText } = e.response;
-
-            if (status === 404) return null;
 
             throw new IntegrationError(statusText, status);
         }
@@ -38,7 +36,7 @@ export class UserIntegration implements UserIntegrationInterface {
 
             const existsUser = data ? data.find((user: any) => user.email.toLowerCase() === email) : null;
 
-            return existsUser ? toUserOutputDto(existsUser) : null;
+            return existsUser ? toUserIntegrationOutputDto(existsUser) : null;
         } catch (e) {
             const { status, statusText } = e.response;
 
@@ -46,17 +44,19 @@ export class UserIntegration implements UserIntegrationInterface {
         }
     }
 
-    async list(): Promise<UserIntegrationOutputDto[]> {
+    async findOneById(id: number): Promise<UserIntegrationOutputDto | null> {
         const baseUrl = 'https://jsonplaceholder.typicode.com';
 
-        const endpoint = `${baseUrl}${ENDPOINTS.users}`;
+        const endpoint = `${baseUrl}${ENDPOINTS.users}/${id}`;
 
         try {
             const { data } = await this.axios.get(endpoint);
 
-            return data ? toUserOutputDtoCollection(data) : [];
+            return data ? toUserIntegrationOutputDto(data) : null;
         } catch (e) {
             const { status, statusText } = e.response;
+
+            if (status === 404) return null;
 
             throw new IntegrationError(statusText, status);
         }

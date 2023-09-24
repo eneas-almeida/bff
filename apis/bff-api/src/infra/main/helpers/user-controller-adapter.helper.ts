@@ -10,6 +10,6 @@ export const dataFindOneByEmail = (headers: any, params: any) => ({
     email: params.email,
 });
 
-export const dataList = (headers: any) => ({
+export const dataFindAll = (headers: any) => ({
     device: deviceAdapter(headers.device),
 });

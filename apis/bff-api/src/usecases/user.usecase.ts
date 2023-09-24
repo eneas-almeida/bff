@@ -7,18 +7,14 @@ import { UserOutputDto, UserUseCaseInterface } from './contracts/user';
 export class UserUseCase implements UserUseCaseInterface {
     constructor(private readonly integration: GlobalIntegrationInterface) {}
 
-    async findOneById(device: Device, id: number): Promise<UserOutputDto> {
-        try {
-            const existsUserExternal = await this.integration.users.findOneById(id);
+    async findAll(device: Device): Promise<UserOutputDto[]> {
+        const existsUsersExternals = await this.integration.users.findAll();
 
-            if (!existsUserExternal) {
-                throw new AppError('User not found', 204);
-            }
-
-            return userOutputDtoAdapter(device, existsUserExternal);
-        } catch (e) {
-            throw e;
+        if (!existsUsersExternals.length) {
+            throw new AppError('User not found', 204);
         }
+
+        return userOutputDtoCollectionAdapter(device, existsUsersExternals);
     }
 
     async findOneByEmail(device: Device, email: string): Promise<UserOutputDto> {
@@ -35,13 +31,17 @@ export class UserUseCase implements UserUseCaseInterface {
         }
     }
 
-    async list(device: Device): Promise<UserOutputDto[]> {
-        const existsUsersExternals = await this.integration.users.list();
+    async findOneById(device: Device, id: number): Promise<UserOutputDto> {
+        try {
+            const existsUserExternal = await this.integration.users.findOneById(id);
 
-        if (!existsUsersExternals.length) {
-            throw new AppError('User not found', 204);
+            if (!existsUserExternal) {
+                throw new AppError('User not found', 204);
+            }
+
+            return userOutputDtoAdapter(device, existsUserExternal);
+        } catch (e) {
+            throw e;
         }
-
-        return userOutputDtoCollectionAdapter(device, existsUsersExternals);
     }
 }

@@ -29,7 +29,7 @@ export interface UserIntegrationOutputDto {
 }
 
 export interface UserIntegrationInterface {
-    findOneById(id: number): Promise<UserIntegrationOutputDto | null>;
+    findAll(): Promise<UserIntegrationOutputDto[]>;
     findOneByEmail(email: string): Promise<UserIntegrationOutputDto | null>;
-    list(): Promise<UserIntegrationOutputDto[]>;
+    findOneById(id: number): Promise<UserIntegrationOutputDto | null>;
 }

@@ -3,7 +3,6 @@ export enum Device {
     DESKTOP = 'DESKTOP',
 }
 
-export interface DeviceMap<T> {
-    [Device.MOBILE]: () => T;
-    [Device.DESKTOP]: () => T;
+export type DeviceMap<T> = {
+    [key in Device]: () => T;
 }

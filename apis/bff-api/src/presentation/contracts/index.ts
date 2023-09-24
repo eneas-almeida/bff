@@ -6,11 +6,11 @@ export type HttpResponse<T = any> = {
 };
 
 export interface HealthzControllerInterface {
-    healthz: () => Promise<HttpResponse<HealthzOutputDto>>;
+    handle: () => Promise<HttpResponse<HealthzOutputDto>>;
 }
 
 export interface UserControllerInterface {
-    findOneById: (device: Device, id: number) => Promise<HttpResponse<UserOutputDto>>;
+    findAll: (device: Device) => Promise<HttpResponse<UserOutputDto[]>>;
     findOneByEmail: (device: Device, email: string) => Promise<HttpResponse<UserOutputDto>>;
-    list: (device: Device) => Promise<HttpResponse<UserOutputDto[]>>;
+    findOneById: (device: Device, id: number) => Promise<HttpResponse<UserOutputDto>>;
 }

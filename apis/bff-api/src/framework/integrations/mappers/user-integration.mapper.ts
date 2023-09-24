@@ -1,6 +1,6 @@
 import { UserIntegrationOutputDto } from '../contracts';
 
-export const toUserOutputDto = (data: any): UserIntegrationOutputDto => ({
+export const toUserIntegrationOutputDto = (data: any): UserIntegrationOutputDto => ({
     id: data.id,
     name: data.name,
     username: data.username,
@@ -24,6 +24,6 @@ export const toUserOutputDto = (data: any): UserIntegrationOutputDto => ({
     website: data.website,
 });
 
-export const toUserOutputDtoCollection = (data: any[]): UserIntegrationOutputDto[] => {
-    return data.map((item) => toUserOutputDto(item));
+export const toUserIntegrationOutputDtoCollection = (data: any[]): UserIntegrationOutputDto[] => {
+    return data.map((item) => toUserIntegrationOutputDto(item));
 };

@@ -1,7 +1,7 @@
 import { UserIntegrationOutputDto } from '@/framework/integrations/contracts';
 import { UserOutputDto } from '@/usecases/contracts';
 
-export const toDesktop = (data: UserIntegrationOutputDto): UserOutputDto => ({
+export const toUserOutputDtoDesktop = (data: UserIntegrationOutputDto): UserOutputDto => ({
     id: data.id,
     name: data.name,
     username: data.username,
@@ -25,17 +25,17 @@ export const toDesktop = (data: UserIntegrationOutputDto): UserOutputDto => ({
     website: data.website,
 });
 
-export const toMobile = (data: UserIntegrationOutputDto): UserOutputDto => ({
+export const toUserOutputDtoMobile = (data: UserIntegrationOutputDto): UserOutputDto => ({
     id: data.id,
     name: data.name,
     username: data.username,
     email: data.email,
 });
 
-export const toDesktopCollection = (data: UserIntegrationOutputDto[]): UserOutputDto[] => {
-    return data.map((item) => toDesktop(item));
+export const toUserOutputDtoCollectionDesktop = (data: UserIntegrationOutputDto[]): UserOutputDto[] => {
+    return data.map((item) => toUserOutputDtoDesktop(item));
 };
 
-export const toMobileCollection = (data: UserIntegrationOutputDto[]): UserOutputDto[] => {
-    return data.map((item) => toMobile(item));
+export const toUserOutputDtoCollectionMobile = (data: UserIntegrationOutputDto[]): UserOutputDto[] => {
+    return data.map((item) => toUserOutputDtoMobile(item));
 };

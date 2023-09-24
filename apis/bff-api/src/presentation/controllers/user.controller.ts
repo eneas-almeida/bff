@@ -22,9 +22,9 @@ export class UserController implements UserControllerInterface {
         }
     }
 
-    async list(device: Device): Promise<HttpResponse<UserOutputDto[]>> {
+    async findAll(device: Device): Promise<HttpResponse<UserOutputDto[]>> {
         try {
-            return ok(await this.userUseCase.list(device));
+            return ok(await this.userUseCase.findAll(device));
         } catch (e) {
             throw e;
         }

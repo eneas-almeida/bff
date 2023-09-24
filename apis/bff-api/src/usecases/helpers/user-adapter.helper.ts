@@ -1,16 +1,16 @@
 import { UserIntegrationOutputDto } from '@/framework/integrations/contracts';
 import {
-    toDesktop,
-    toDesktopCollection,
-    toMobile,
-    toMobileCollection,
+    toUserOutputDtoDesktop,
+    toUserOutputDtoCollectionDesktop,
+    toUserOutputDtoMobile,
+    toUserOutputDtoCollectionMobile,
 } from '@/infra/main/mappers/user.mapper';
 import { Device, DeviceMap, UserOutputDto } from '../contracts';
 
 export const userOutputDtoAdapter = (device: Device, data: UserIntegrationOutputDto): UserOutputDto => {
     const map: DeviceMap<UserOutputDto> = {
-        [Device.DESKTOP]: () => toDesktop(data),
-        [Device.MOBILE]: () => toMobile(data),
+        [Device.DESKTOP]: () => toUserOutputDtoDesktop(data),
+        [Device.MOBILE]: () => toUserOutputDtoMobile(data),
     };
 
     return (map[device] || map['DESKTOP'])();
@@ -21,8 +21,8 @@ export const userOutputDtoCollectionAdapter = (
     data: UserIntegrationOutputDto[]
 ): UserOutputDto[] => {
     const map: DeviceMap<UserOutputDto[]> = {
-        [Device.DESKTOP]: () => toDesktopCollection(data),
-        [Device.MOBILE]: () => toMobileCollection(data),
+        [Device.DESKTOP]: () => toUserOutputDtoCollectionDesktop(data),
+        [Device.MOBILE]: () => toUserOutputDtoCollectionMobile(data),
     };
 
     return (map[device] || map['DESKTOP'])();

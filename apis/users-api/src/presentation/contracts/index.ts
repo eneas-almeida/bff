@@ -6,7 +6,7 @@ export type HttpResponse<T = any> = {
 };
 
 export interface HealthzControllerInterface {
-    execute: () => Promise<HttpResponse<HealthzOutputDto>>;
+    handle: () => Promise<HttpResponse<HealthzOutputDto>>;
 }
 
 export interface UserControllerInterface {

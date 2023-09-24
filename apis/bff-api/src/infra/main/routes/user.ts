@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { MakeUserController } from '../containers/user-controller.container';
+import { MakeUserControllerContainer } from '../containers/controllers/user-controller.container';
 import { envs } from '../configs';
 import {
     findOneUserByEmailControllerAdapter,
@@ -8,7 +8,7 @@ import {
 } from '../adapters/controllers';
 
 export default async (router: Router): Promise<void> => {
-    const makeUserController = await MakeUserController();
+    const makeUserController = await MakeUserControllerContainer();
 
     const basePath = 'users';
 

@@ -7,6 +7,6 @@ export interface PhotoIntegrationOutputDto {
 }
 
 export interface PhotoIntegrationInterface {
+    findAll(): Promise<PhotoIntegrationOutputDto[]>;
     findOneById(id: number): Promise<PhotoIntegrationOutputDto | null>;
-    list(): Promise<PhotoIntegrationOutputDto[]>;
 }

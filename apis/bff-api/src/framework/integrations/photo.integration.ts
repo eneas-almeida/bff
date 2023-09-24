@@ -4,11 +4,11 @@ import { PhotoIntegrationInterface, PhotoIntegrationOutputDto } from './contract
 export class PhotoIntegration implements PhotoIntegrationInterface {
     constructor(private readonly axiosInstance: AxiosInstance) {}
 
-    async findOneById(id: number): Promise<PhotoIntegrationOutputDto | null> {
-        return null;
+    async findAll(): Promise<PhotoIntegrationOutputDto[]> {
+        return [];
     }
 
-    async list(): Promise<PhotoIntegrationOutputDto[]> {
-        return [];
+    async findOneById(id: number): Promise<PhotoIntegrationOutputDto | null> {
+        return null;
     }
 }
