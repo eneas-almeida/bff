@@ -1,26 +1,20 @@
 import { AxiosInstance } from 'axios';
-import { envs } from '@/infra/main/configs';
 import { UserIntegrationInterface, UserIntegrationOutputDto } from './contracts';
 import { IntegrationError } from './errors';
+import { checkHttpRequest, findOneUserByEmailInCollection, getEndpoint } from './helpers';
 import { toUserIntegrationOutputDto, toUserIntegrationOutputDtoCollection } from './mappers';
 
-const ENDPOINTS = {
-    users: '/users',
-};
-
-export class UserTipycodeIntegration implements UserIntegrationInterface {
+export class UserIntegration implements UserIntegrationInterface {
     constructor(private readonly axios: AxiosInstance) {}
 
     async findAll(): Promise<UserIntegrationOutputDto[]> {
-        const { baseUrl } = envs.integrations.typicode;
-
-        const endpoint = `${baseUrl}${ENDPOINTS.users}`;
-
         try {
-            const { data } = await this.axios.get(endpoint);
+            const { data } = await this.axios.get(getEndpoint());
 
-            return data ? toUserIntegrationOutputDtoCollection(data) : [];
+            return data && data.length ? toUserIntegrationOutputDtoCollection(data) : [];
         } catch (e) {
+            checkHttpRequest(e);
+
             const { status, statusText } = e.response;
 
             throw new IntegrationError(statusText, status);
@@ -28,17 +22,15 @@ export class UserTipycodeIntegration implements UserIntegrationInterface {
     }
 
     async findOneByEmail(email: string): Promise<UserIntegrationOutputDto | null> {
-        const { baseUrl } = envs.integrations.typicode;
-
-        const endpoint = `${baseUrl}${ENDPOINTS.users}`;
-
         try {
-            const { data } = await this.axios.get(endpoint);
+            const { data } = await this.axios.get(getEndpoint());
 
-            const existsUser = data ? data.find((user: any) => user.email.toLowerCase() === email) : null;
+            const users = data && data.length ? findOneUserByEmailInCollection(data, email) : null;
 
-            return existsUser ? toUserIntegrationOutputDto(existsUser) : null;
+            return users ? toUserIntegrationOutputDto(users) : null;
         } catch (e) {
+            checkHttpRequest(e);
+
             const { status, statusText } = e.response;
 
             throw new IntegrationError(statusText, status);
@@ -46,15 +38,15 @@ export class UserTipycodeIntegration implements UserIntegrationInterface {
     }
 
     async findOneById(id: number): Promise<UserIntegrationOutputDto | null> {
-        const { baseUrl } = envs.integrations.typicode;
-
-        const endpoint = `${baseUrl}${ENDPOINTS.users}/${id}`;
-
         try {
+            const endpoint = `${getEndpoint()}/id/${id}`;
+
             const { data } = await this.axios.get(endpoint);
 
             return data ? toUserIntegrationOutputDto(data) : null;
         } catch (e) {
+            checkHttpRequest(e);
+
             const { status, statusText } = e.response;
 
             if (status === 404) return null;

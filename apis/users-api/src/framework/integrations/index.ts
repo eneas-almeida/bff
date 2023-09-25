@@ -1,1 +1,1 @@
-export * from './user.typicode.integration';
+export * from './user-typicode.integration';
