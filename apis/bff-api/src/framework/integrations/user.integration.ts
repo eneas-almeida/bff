@@ -1,7 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { UserIntegrationInterface, UserIntegrationOutputDto } from './contracts';
-import { IntegrationError } from './errors';
-import { checkHttpRequest, findOneUserByEmailInCollection, getEndpoint } from './helpers';
+import { checkError, findOneUserByEmailInCollection, getEndpoint } from './helpers';
 import { toUserIntegrationOutputDto, toUserIntegrationOutputDtoCollection } from './mappers';
 
 export class UserIntegration implements UserIntegrationInterface {
@@ -13,11 +12,7 @@ export class UserIntegration implements UserIntegrationInterface {
 
             return data && data.length ? toUserIntegrationOutputDtoCollection(data) : [];
         } catch (e) {
-            checkHttpRequest(e);
-
-            const { status, statusText } = e.response;
-
-            throw new IntegrationError(statusText, status);
+            checkError(e);
         }
     }
 
@@ -29,11 +24,7 @@ export class UserIntegration implements UserIntegrationInterface {
 
             return users ? toUserIntegrationOutputDto(users) : null;
         } catch (e) {
-            checkHttpRequest(e);
-
-            const { status, statusText } = e.response;
-
-            throw new IntegrationError(statusText, status);
+            checkError(e);
         }
     }
 
@@ -45,13 +36,7 @@ export class UserIntegration implements UserIntegrationInterface {
 
             return data ? toUserIntegrationOutputDto(data) : null;
         } catch (e) {
-            checkHttpRequest(e);
-
-            const { status, statusText } = e.response;
-
-            if (status === 404) return null;
-
-            throw new IntegrationError(statusText, status);
+            checkError(e);
         }
     }
 }

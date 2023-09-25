@@ -1,5 +1,5 @@
 {
-    "name": "user-api",
+    "name": "users-api",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
@@ -10,6 +10,7 @@
     },
     "keywords": [
         "bff",
+        "clean architecture",
         "typescript",
         "api"
     ],

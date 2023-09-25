@@ -1,2 +1,3 @@
 export * from './app.error';
-export * from './server.error';
+export * from './bad-request.error';
+export * from './integration.error';
