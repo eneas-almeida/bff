@@ -1,11 +1,11 @@
-import { GlobalIntegrationInterface } from '@/framework/integrations/contracts';
+import { IntegrationInterface } from '@/framework/integrations/contracts';
 import { AppError } from '@/main/errors';
-import { userOutputDtoCollectionAdapter, userOutputDtoAdapter } from './helpers';
 import { Device } from './contracts';
 import { UserOutputDto, UserUseCaseInterface } from './contracts/user';
+import { userOutputDtoAdapter, userOutputDtoCollectionAdapter } from './helpers';
 
 export class UserUseCase implements UserUseCaseInterface {
-    constructor(private readonly integration: GlobalIntegrationInterface) {}
+    constructor(private readonly integration: IntegrationInterface) {}
 
     async findAll(device: Device): Promise<UserOutputDto[]> {
         const existsUsersExternals = await this.integration.users.findAll();

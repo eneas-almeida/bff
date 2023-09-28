@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { PhotoIntegrationInterface, PhotoIntegrationOutputDto } from './contracts';
 
 export class PhotoIntegration implements PhotoIntegrationInterface {
-    constructor(private readonly axiosInstance: AxiosInstance) {}
+    constructor(private readonly axios: AxiosInstance) {}
 
     async findAll(): Promise<PhotoIntegrationOutputDto[]> {
         return [];
