@@ -21,7 +21,7 @@ export class LoggerMongodbRepository implements LoggerRepositoryInterface {
         try {
             const schemas = await LoggerSchema.find();
 
-            return schemas ? LoggerMapper.schemasToEntityCollection(schemas) : null;
+            return schemas.length ? LoggerMapper.schemasToEntityCollection(schemas) : [];
         } catch (e) {
             throw new Error(e.message);
         }

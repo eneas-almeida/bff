@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
+    origin: { type: String, required: true },
     key: { type: String, required: true },
     request: { type: String, required: true },
     response: { type: String },
@@ -8,6 +9,7 @@ const schema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now() },
 });
 
+schema.index({ origin: 1 });
 schema.index({ key: 1 });
 schema.index({ createdAt: 1 });
 schema.index({ updatedAt: 1 });

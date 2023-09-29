@@ -2,6 +2,7 @@ import { Notification } from '../notification';
 
 export interface LoggerEntityInterface {
     get id(): string;
+    get origin(): string;
     get key(): string;
     get request(): string;
     get response(): string;
@@ -9,6 +10,7 @@ export interface LoggerEntityInterface {
     get notification(): Notification;
 
     setId(value: string): void;
+    setOrigin(value: string): void;
     setKey(value: string): void;
     setRequest(value: string): void;
     setResponse(value: string): void;

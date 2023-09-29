@@ -7,14 +7,16 @@ export class LoggerYupValidator implements ValidatorInterface<LoggerEntityInterf
         try {
             yup.object()
                 .shape({
-                    key: yup.number().required('propriedade key requerida'),
+                    origin: yup.string().required('propriedade origin requerida'),
+                    key: yup.string().required('propriedade key requerida'),
                     request: yup.string().required('propridade request requerida'),
                     response: yup.string().required('propridade response requerida'),
                 })
                 .validateSync(
                     {
+                        origin: entity.origin,
                         key: entity.key,
-                        resquest: entity.request,
+                        request: entity.request,
                         response: entity.response,
                     },
                     { abortEarly: false }

@@ -5,13 +5,11 @@ import { Id } from '../contracts';
 export abstract class EntityAbstract {
     protected _id: string;
     protected _createdAt: Date;
-    protected _updatedAt: Date;
     protected _notification: Notification;
 
     constructor(id: Id) {
         this._id = id || uuidv4();
         this._createdAt = new Date();
-        this._updatedAt = new Date();
         this._notification = new Notification();
     }
 
@@ -29,14 +27,6 @@ export abstract class EntityAbstract {
 
     setCreatedAt(value: Date): void {
         this._createdAt = value;
-    }
-
-    get updatedAt(): Date {
-        return this._updatedAt;
-    }
-
-    setUpdatedAt(value: Date): void {
-        this._updatedAt = value;
     }
 
     get notification(): Notification {

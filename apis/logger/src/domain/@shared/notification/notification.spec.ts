@@ -6,21 +6,21 @@ describe('Unit testss for notifications', () => {
 
         const error = {
             message: 'error message',
-            context: 'customer',
+            context: 'logger',
         };
 
         notification.addError(error);
 
-        expect(notification.messages('customer')).toBe('customer: error message,');
+        expect(notification.messages('logger')).toBe('logger: error message,');
 
         const error2 = {
             message: 'error message2',
-            context: 'customer',
+            context: 'logger',
         };
 
         notification.addError(error2);
 
-        expect(notification.messages('customer')).toBe('customer: error message,customer: error message2,');
+        expect(notification.messages('logger')).toBe('logger: error message,logger: error message2,');
 
         const error3 = {
             message: 'error message3',
@@ -28,9 +28,9 @@ describe('Unit testss for notifications', () => {
         };
         notification.addError(error3);
 
-        expect(notification.messages('customer')).toBe('customer: error message,customer: error message2,');
+        expect(notification.messages('logger')).toBe('logger: error message,logger: error message2,');
         expect(notification.messages()).toBe(
-            'customer: error message,customer: error message2,order: error message3,'
+            'logger: error message,logger: error message2,order: error message3,'
         );
     });
 
@@ -38,7 +38,7 @@ describe('Unit testss for notifications', () => {
         const notification = new Notification();
         const error = {
             message: 'error message',
-            context: 'customer',
+            context: 'logger',
         };
         notification.addError(error);
 
@@ -49,7 +49,7 @@ describe('Unit testss for notifications', () => {
         const notification = new Notification();
         const error = {
             message: 'error message',
-            context: 'customer',
+            context: 'logger',
         };
         notification.addError(error);
 

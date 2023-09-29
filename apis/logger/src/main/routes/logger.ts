@@ -12,9 +12,9 @@ export default async (router: Router): Promise<void> => {
 
     const basePath = 'loggers';
 
-    router.get(`/${basePath}`, createLoggerControllerAdapter(makeLoggerController));
-    router.get(`/${basePath}/:paramns`, findLoggersByFilterControllerAdapter(makeLoggerController));
-    router.get(`/${basePath}/id/:id`, findOneLoggerByIdControllerAdapter(makeLoggerController));
+    router.post(`/${basePath}`, createLoggerControllerAdapter(makeLoggerController));
+    router.get(`/${basePath}`, findLoggersByFilterControllerAdapter(makeLoggerController));
+    router.get(`/${basePath}/:id`, findOneLoggerByIdControllerAdapter(makeLoggerController));
 
     const baseRoute = `${envs.api.version}/${basePath}`;
 
