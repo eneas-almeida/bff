@@ -1,4 +1,5 @@
 import { Errback, NextFunction, Request, Response } from 'express';
+import { NotificationError } from '@/domain/@shared/errors';
 import { envs } from '../configs';
 import { AppError } from '../errors';
 import { errorMessageAdapter } from '../helpers';
@@ -9,6 +10,14 @@ export class ErrorHandlerMiddleware {
             return res.status(err.statusCode).json({
                 statusCode: err.statusCode,
                 message: err.message,
+            });
+        }
+
+        if (err instanceof NotificationError) {
+            return res.status(400).json({
+                statusCode: 400,
+                message: err.message,
+                description: err.description,
             });
         }
 

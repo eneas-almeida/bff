@@ -1,4 +1,12 @@
-import { app, bannerConfig, envsValidate, routesConfig, errorConfig, serverConfig } from './configs';
+import {
+    app,
+    bannerConfig,
+    envsValidate,
+    errorConfig,
+    mongodbConfig,
+    routesConfig,
+    serverConfig,
+} from './configs';
 
 export class MainBuild {
     initBanner() {
@@ -12,6 +20,11 @@ export class MainBuild {
     }
 
     initLogger() {
+        return this;
+    }
+
+    async initDB() {
+        await mongodbConfig();
         return this;
     }
 

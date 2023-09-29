@@ -34,6 +34,13 @@ export const envs = {
         version: env.API_VERSION,
         hateosActivated: env.API_HATEOS_ACTIVATED ? parseTo(env.API_HATEOS_ACTIVATED, Type.BOOLEAN) : null,
     },
+    mongodb: {
+        host: env.MONGODB_HOST,
+        port: env.MONGODB_PORT,
+        user: env.MONGODB_USER,
+        password: env.MONGODB_PASSWORD,
+        name: env.MONGODB_NAME,
+    },
     axios: {
         retryQtty: env.AXIOS_RETRY_ATTEMPTS ? parseTo(env.AXIOS_RETRY_ATTEMPTS, Type.NUMBER) : null,
         baseDelay: env.AXIOS_BASE_DELAY ? parseTo(env.AXIOS_BASE_DELAY, Type.NUMBER) : null,
@@ -50,11 +57,6 @@ export const envs = {
         freeSocketTimeout: env.AGENTKEEPALIVE_FREE_SOCKET_TIMEOUT
             ? parseTo(env.AGENTKEEPALIVE_FREE_SOCKET_TIMEOUT, Type.NUMBER)
             : null,
-    },
-    integrations: {
-        typicode: {
-            baseUrl: env.INTEGRATION_TYPICODE_BASE_URL,
-        },
     },
 };
 

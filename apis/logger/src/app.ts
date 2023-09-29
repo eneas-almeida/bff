@@ -5,8 +5,16 @@ const main = new MainBuild();
 main.initBanner()
     .initEnvs()
     .initLogger()
-    .initRoutes()
-    .then((res) => res.initErrorHandler().initServer())
+    .initDB()
+    .then((res) => {
+        res.initRoutes()
+            .then((res) => {
+                res.initErrorHandler().initServer();
+            })
+            .catch((e) => {
+                throw new Error(e);
+            });
+    })
     .catch((e) => {
         throw new Error(e);
     });
