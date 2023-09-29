@@ -1,5 +1,5 @@
 import { UserOutputDto } from '@/usecases/contracts';
-import { FindAllUsersUseCase, FindOneUserByEmailUseCase, FindOneUserByIdUseCase } from '@/usecases/user';
+import { FindAllUsersUseCase, FindOneUserByEmailUseCase, FindOneUserByIdUseCase } from '@/usecases/users';
 import { HttpResponse, UserControllerInterface } from '../contracts';
 import { ok } from '../helpers';
 

@@ -1,7 +1,7 @@
-db = db.getSiblingDB('loggers');
+db = db.getSiblingDB('logs');
 
 db.createUser({
-    user: 'logger',
-    pwd: 'logger',
-    roles: [{ role: 'readWrite', db: 'loggers' }],
+    user: 'log',
+    pwd: 'log',
+    roles: [{ role: 'readWrite', db: 'logs' }],
 });
