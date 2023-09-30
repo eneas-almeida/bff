@@ -1,5 +1,5 @@
 import { CreateLogUseCase, FilterLogsUseCase, FindOneLogByIdUseCase } from '@/usecases';
-import { LogCreateInputDto, LogOutputDto } from '@/usecases/contracts';
+import { LogCreateInputDto, LogOutputCustomDto } from '@/usecases/contracts';
 import { HttpResponse, LogControllerInterface } from '../contracts';
 import { create, ok } from '../helpers';
 
@@ -10,15 +10,15 @@ export class LogController implements LogControllerInterface {
         private readonly findOneLogByIdUseCase: FindOneLogByIdUseCase
     ) {}
 
-    async create(input: LogCreateInputDto): Promise<HttpResponse<LogOutputDto>> {
+    async create(input: LogCreateInputDto): Promise<HttpResponse<LogOutputCustomDto>> {
         return create(await this.createLogUseCase.execute(input));
     }
 
-    async filter(): Promise<HttpResponse<LogOutputDto[]>> {
+    async filter(): Promise<HttpResponse<LogOutputCustomDto>> {
         return ok(await this.filterLogsUseCase.execute());
     }
 
-    async findOneById(id: string): Promise<HttpResponse<LogOutputDto>> {
+    async findOneById(id: string): Promise<HttpResponse<LogOutputCustomDto>> {
         return ok(await this.findOneLogByIdUseCase.execute(id));
     }
 }

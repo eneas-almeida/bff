@@ -12,7 +12,7 @@ main.initBanner()
                 res.initErrorHandler().initServer();
             })
             .catch((e) => {
-                throw new Error(e);
+                throw e;
             });
     })
     .catch((e) => {

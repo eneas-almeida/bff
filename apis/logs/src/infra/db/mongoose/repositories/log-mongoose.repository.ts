@@ -2,7 +2,7 @@ import { LogMapper } from '@/data/mappers';
 import { LogEntityInterface, LogRepositoryInterface } from '@/domain/@shared/contracts';
 import { LogSchema } from '../schemas';
 
-export class LogMongodbRepository implements LogRepositoryInterface {
+export class LogMongooseRepository implements LogRepositoryInterface {
     async create(entity: LogEntityInterface): Promise<LogEntityInterface> {
         const data = LogMapper.entityToSchemaData(entity);
 

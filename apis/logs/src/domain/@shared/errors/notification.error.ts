@@ -5,7 +5,7 @@ export class NotificationError {
     public readonly message: string;
     public readonly description: string;
 
-    constructor(statusCode?: number, message?: NotificationErrorProps[], description?: string) {
+    constructor(statusCode?: number, message?: NotificationErrorProps[]) {
         this.statusCode = statusCode || 400;
         this.message = 'request inválida';
         this.description = this.mountMessage(message);

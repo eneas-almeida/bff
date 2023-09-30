@@ -5,10 +5,10 @@ import {
     filterLogsControllerAdapter,
 } from '../adapters/controllers';
 import { envs } from '../configs';
-import { MakeLogControllerContainer } from '../containers/controllers';
+import { MakeLogController } from '../factories/controllers';
 
 export default async (router: Router): Promise<void> => {
-    const makeLogController = await MakeLogControllerContainer();
+    const makeLogController = await MakeLogController();
 
     const basePath = 'logs';
 
