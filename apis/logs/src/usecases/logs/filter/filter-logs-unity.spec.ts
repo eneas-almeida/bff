@@ -12,6 +12,7 @@ const MockRepository = () => {
         create: jest.fn(),
         filter: jest.fn().mockReturnValue(Promise.resolve(logs)),
         findOneById: jest.fn(),
+        findOneByKey: jest.fn(),
     };
 };
 

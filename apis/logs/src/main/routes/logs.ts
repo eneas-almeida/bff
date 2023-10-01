@@ -3,6 +3,7 @@ import {
     findOneLogByIdControllerAdapter,
     createLogControllerAdapter,
     filterLogsControllerAdapter,
+    findOneLogByKeyControllerAdapter,
 } from '../adapters/controllers';
 import { envs } from '../configs';
 import { MakeLogController } from '../factories/controllers';
@@ -15,11 +16,13 @@ export default async (router: Router): Promise<void> => {
     router.post(`/${basePath}`, createLogControllerAdapter(makeLogController));
     router.get(`/${basePath}`, filterLogsControllerAdapter(makeLogController));
     router.get(`/${basePath}/:id`, findOneLogByIdControllerAdapter(makeLogController));
+    router.get(`/${basePath}/key/:key`, findOneLogByKeyControllerAdapter(makeLogController));
 
     const baseRoute = `${envs.api.version}/${basePath}`;
 
     console.log(`${basePath.toUpperCase()}`);
-    console.log(`[ok] ${baseRoute} (GET) (AUTH NO)`);
-    console.log(`[ok] ${baseRoute}/:params (GET) (AUTH NO)`);
-    console.log(`[ok] ${baseRoute}/:id (GET) (AUTH NO)`);
+    console.log(`[ok] ${baseRoute} (GET)`);
+    console.log(`[ok] ${baseRoute}/:params (GET)`);
+    console.log(`[ok] ${baseRoute}/:id (GET)`);
+    console.log(`[ok] ${baseRoute}/key/:key (GET)`);
 };

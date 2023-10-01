@@ -28,6 +28,7 @@ export const outputCustomDto = <T extends LogOutputDto | LogOutputDto[]>(data: T
             { method: 'post', url, description: 'Create a new log' },
             { method: 'get', url, description: 'Filters logs' },
             { method: 'get', url: `${url}/:id`, description: 'Find a log by id' },
+            { method: 'get', url: `${url}/key/:key`, description: 'Find a log by key' },
         ];
     }
 

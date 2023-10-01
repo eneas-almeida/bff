@@ -1,1 +1,1 @@
-export * from './log.mapper';
+export * from './logs.mapper';

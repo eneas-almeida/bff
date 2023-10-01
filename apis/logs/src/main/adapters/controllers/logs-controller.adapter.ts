@@ -32,3 +32,13 @@ export const findOneLogByIdControllerAdapter = (controller: LogControllerInterfa
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };
 };
+
+export const findOneLogByKeyControllerAdapter = (controller: LogControllerInterface) => {
+    return async (req: Request, res: Response) => {
+        const { key } = req.params;
+
+        const httpResponse = await controller.findOneByKey(key);
+
+        res.status(httpResponse.statusCode).json(httpResponse.body);
+    };
+};

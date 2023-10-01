@@ -1,5 +1,5 @@
 import { LogFactory } from '@/domain/logs/factory';
-import { FindOneLogByIdUseCase } from './find-one-log-by-id.usecase';
+import { FindOneLogByKeyUseCase } from './find-one-log-by-key.usecase';
 
 const MockRepository = () => {
     const logs = [
@@ -11,16 +11,16 @@ const MockRepository = () => {
     return {
         create: jest.fn(),
         filter: jest.fn(),
-        findOneById: jest.fn().mockResolvedValue(logs[1]),
-        findOneByKey: jest.fn(),
+        findOneById: jest.fn(),
+        findOneByKey: jest.fn().mockResolvedValue(logs[1]),
     };
 };
 
-describe('Find one log by id (unity test)', () => {
+describe('Find one log by key (unity test)', () => {
     test('Should return a log unity', async () => {
-        const findOneLogByIdUseCase = new FindOneLogByIdUseCase(MockRepository());
+        const findOneLogByKeyUseCase = new FindOneLogByKeyUseCase(MockRepository());
 
-        const output = await findOneLogByIdUseCase.execute('202020');
+        const output = await findOneLogByKeyUseCase.execute('202020');
 
         expect(output.data.origin).toEqual('rabbit');
     });

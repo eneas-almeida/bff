@@ -32,4 +32,14 @@ export class LogMongooseRepository implements LogRepositoryInterface {
             throw new Error(e.message);
         }
     }
+
+    async findOneByKey(key: string): Promise<LogEntityInterface | null> {
+        try {
+            const schema = await LogSchema.findOne({ key });
+
+            return schema ? LogMapper.schemaToEntity(schema) : null;
+        } catch (e) {
+            throw new Error(e.message);
+        }
+    }
 }
