@@ -7,9 +7,9 @@ export class CreateLogUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}
 
     async execute(input: LogCreateInputDto): Promise<LogOutputCustomDto<LogOutputDto>> {
-        const entity = LogMapper.dtoToEntity(input);
+        let entity = LogMapper.dtoToEntity(input);
 
-        await this.logRepository.create(entity);
+        entity = await this.logRepository.create(entity);
 
         const outputDto = LogMapper.entityToDto(entity);
 

@@ -3,11 +3,15 @@ import { LogEntityInterface, LogRepositoryInterface } from '@/domain/@shared/con
 import { LogSchema } from '../schemas';
 
 export class LogMongooseRepository implements LogRepositoryInterface {
-    async create(entity: LogEntityInterface): Promise<void> {
+    async create(entity: LogEntityInterface): Promise<LogEntityInterface> {
         const data = LogMapper.entityToSchemaData(entity);
 
         try {
-            await LogSchema.create(data);
+            const schema = await LogSchema.create(data);
+
+            entity.setId(schema._id.toString());
+
+            return entity;
         } catch (e) {
             throw new Error(e.message);
         }
