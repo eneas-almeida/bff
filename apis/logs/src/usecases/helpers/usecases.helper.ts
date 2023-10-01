@@ -2,8 +2,8 @@ import { envs } from '@/main/configs';
 import { api } from '@/main/utils';
 import { LogOutputCustomDto, LogOutputDto } from '../contracts';
 
-export const outputCustomDto = (data: LogOutputDto | LogOutputDto[]): LogOutputCustomDto => {
-    const output: LogOutputCustomDto = {
+export const outputCustomDto = <T extends LogOutputDto | LogOutputDto[]>(data: T): LogOutputCustomDto<T> => {
+    const output: LogOutputCustomDto<T> = {
         data,
     };
 

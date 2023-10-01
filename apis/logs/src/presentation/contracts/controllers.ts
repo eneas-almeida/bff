@@ -1,4 +1,4 @@
-import { HealthzOutputDto, LogCreateInputDto, LogOutputCustomDto } from '@/usecases/contracts';
+import { HealthzOutputDto, LogCreateInputDto, LogOutputCustomDto, LogOutputDto } from '@/usecases/contracts';
 import { HttpResponse } from './http';
 
 export interface HealthzControllerInterface {
@@ -6,7 +6,7 @@ export interface HealthzControllerInterface {
 }
 
 export interface LogControllerInterface {
-    create: (input: LogCreateInputDto) => Promise<HttpResponse<LogOutputCustomDto>>;
-    filter: () => Promise<HttpResponse<LogOutputCustomDto>>;
-    findOneById: (id: string) => Promise<HttpResponse<LogOutputCustomDto>>;
+    create: (input: LogCreateInputDto) => Promise<HttpResponse<LogOutputCustomDto<LogOutputDto>>>;
+    filter: () => Promise<HttpResponse<LogOutputCustomDto<LogOutputDto[]>>>;
+    findOneById: (id: string) => Promise<HttpResponse<LogOutputCustomDto<LogOutputDto>>>;
 }

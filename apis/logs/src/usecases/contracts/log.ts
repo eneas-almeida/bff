@@ -17,8 +17,8 @@ export interface LogOutputDto {
     createdAt: Date;
 }
 
-export interface LogOutputCustomDto {
+export interface LogOutputCustomDto<T extends LogOutputDto | LogOutputDto[]> {
     pagination?: PaginationDto;
-    data: LogOutputDto | LogOutputDto[];
+    data: T;
     _links?: Hateos[];
 }
