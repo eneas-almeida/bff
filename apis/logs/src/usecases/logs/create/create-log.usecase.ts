@@ -1,12 +1,12 @@
 import { LogMapper } from '@/data/mappers';
 import { LogRepositoryInterface } from '@/domain/@shared/contracts';
-import { LogCreateInputDto, LogOutputCustomDto, LogOutputDto } from '@/usecases/contracts';
+import { LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/usecases/contracts';
 import { outputCustomDto } from '@/usecases/helpers';
 
 export class CreateLogUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}
 
-    async execute(input: LogCreateInputDto): Promise<LogOutputCustomDto<LogOutputDto>> {
+    async execute(input: LogCreateInputDto): Promise<LogCustomOutputDto<LogOutputDto>> {
         let entity = LogMapper.dtoToEntity(input);
 
         entity = await this.logRepository.create(entity);

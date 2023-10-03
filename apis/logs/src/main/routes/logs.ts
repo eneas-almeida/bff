@@ -22,7 +22,7 @@ export default async (router: Router): Promise<void> => {
 
     console.log(`${basePath.toUpperCase()}`);
     console.log(`[ok] ${baseRoute} (GET)`);
-    console.log(`[ok] ${baseRoute}/:params (GET)`);
+    console.log(`[ok] ${baseRoute} (GET)`);
     console.log(`[ok] ${baseRoute}/:id (GET)`);
     console.log(`[ok] ${baseRoute}/key/:key (GET)`);
 };

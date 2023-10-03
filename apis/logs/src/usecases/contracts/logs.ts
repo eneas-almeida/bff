@@ -17,7 +17,30 @@ export interface LogOutputDto {
     createdAt: Date;
 }
 
-export interface LogOutputCustomDto<T extends LogOutputDto | LogOutputDto[]> {
+export interface LogFilterInputDto {
+    q?: string;
+    limit?: number;
+    page?: number;
+    order?: string;
+    orderBy?: string;
+    initDate?: Date;
+    endDate?: Date;
+}
+
+export interface LogFilterQueryBuildDto {
+    q?: string;
+    limit?: number;
+    page?: number;
+    skip?: number;
+    order?: string;
+    orderBy?: string;
+    createdAt?: {
+        $gte?: Date;
+        $lte?: Date;
+    };
+}
+
+export interface LogCustomOutputDto<T extends LogOutputDto | LogOutputDto[]> {
     pagination?: PaginationDto;
     data: T;
     _links?: Hateos[];

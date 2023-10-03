@@ -4,9 +4,11 @@ import {
     FindOneLogByIdUseCase,
     FindOneLogByKeyUseCase,
 } from '@/usecases';
-import { LogCreateInputDto, LogOutputCustomDto, LogOutputDto } from '@/usecases/contracts';
+import { LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/usecases/contracts';
 import { HttpResponse, LogControllerInterface } from '../contracts';
 import { create, ok } from '../helpers';
+import { FilterInputDto } from '@/shared/filter';
+import { LogOrderFilter } from '@/domain/@shared/contracts';
 
 export class LogController implements LogControllerInterface {
     constructor(
@@ -16,19 +18,21 @@ export class LogController implements LogControllerInterface {
         private readonly findOneLogByKeyUseCase: FindOneLogByKeyUseCase
     ) {}
 
-    async create(input: LogCreateInputDto): Promise<HttpResponse<LogOutputCustomDto<LogOutputDto>>> {
+    async create(input: LogCreateInputDto): Promise<HttpResponse<LogCustomOutputDto<LogOutputDto>>> {
         return create(await this.createLogUseCase.execute(input));
     }
 
-    async filter(): Promise<HttpResponse<LogOutputCustomDto<LogOutputDto[]>>> {
-        return ok(await this.filterLogsUseCase.execute());
+    async filter(
+        input: FilterInputDto<LogOrderFilter>
+    ): Promise<HttpResponse<LogCustomOutputDto<LogOutputDto[]>>> {
+        return ok(await this.filterLogsUseCase.execute(input));
     }
 
-    async findOneById(id: string): Promise<HttpResponse<LogOutputCustomDto<LogOutputDto>>> {
+    async findOneById(id: string): Promise<HttpResponse<LogCustomOutputDto<LogOutputDto>>> {
         return ok(await this.findOneLogByIdUseCase.execute(id));
     }
 
-    async findOneByKey(key: string): Promise<HttpResponse<LogOutputCustomDto<LogOutputDto>>> {
+    async findOneByKey(key: string): Promise<HttpResponse<LogCustomOutputDto<LogOutputDto>>> {
         return ok(await this.findOneLogByKeyUseCase.execute(key));
     }
 }

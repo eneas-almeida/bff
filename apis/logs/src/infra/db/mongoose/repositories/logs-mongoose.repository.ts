@@ -1,5 +1,6 @@
 import { LogMapper } from '@/data/mappers';
 import { LogEntityInterface, LogRepositoryInterface } from '@/domain/@shared/contracts';
+import { LogFilterQueryBuildDto } from '@/usecases/contracts';
 import { LogSchema } from '../schemas';
 
 export class LogMongooseRepository implements LogRepositoryInterface {
@@ -7,9 +8,9 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         const data = LogMapper.entityToSchemaData(entity);
 
         try {
-            const schema = await LogSchema.create(data);
+            const document = await LogSchema.create(data);
 
-            entity.setId(schema._id.toString());
+            entity.setId(document._id.toString());
 
             return entity;
         } catch (e) {
@@ -17,11 +18,13 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         }
     }
 
-    async filter(): Promise<LogEntityInterface[]> {
+    async filter(input: LogFilterQueryBuildDto): Promise<LogEntityInterface[]> {
         try {
-            const schemas = await LogSchema.find();
+            const { skip, limit } = input;
 
-            return schemas.length ? LogMapper.schemasToEntityCollection(schemas) : [];
+            const documents = await LogSchema.find().skip(skip).limit(limit).exec();
+
+            return documents.length ? LogMapper.schemasToEntityCollection(documents) : [];
         } catch (e) {
             throw new Error(e.message);
         }
@@ -29,9 +32,9 @@ export class LogMongooseRepository implements LogRepositoryInterface {
 
     async findOneById(id: string): Promise<LogEntityInterface | null> {
         try {
-            const schema = await LogSchema.findById(id);
+            const document = await LogSchema.findById(id);
 
-            return schema ? LogMapper.schemaToEntity(schema) : null;
+            return document ? LogMapper.schemaToEntity(document) : null;
         } catch (e) {
             throw new Error(e.message);
         }
@@ -39,9 +42,9 @@ export class LogMongooseRepository implements LogRepositoryInterface {
 
     async findOneByKey(key: string): Promise<LogEntityInterface | null> {
         try {
-            const schema = await LogSchema.findOne({ key });
+            const document = await LogSchema.findOne({ key });
 
-            return schema ? LogMapper.schemaToEntity(schema) : null;
+            return document ? LogMapper.schemaToEntity(document) : null;
         } catch (e) {
             throw new Error(e.message);
         }

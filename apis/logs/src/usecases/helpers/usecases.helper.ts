@@ -1,9 +1,9 @@
 import { envs } from '@/main/configs';
 import { api } from '@/main/utils';
-import { LogOutputCustomDto, LogOutputDto } from '../contracts';
+import { LogCustomOutputDto, LogOutputDto } from '../contracts';
 
-export const outputCustomDto = <T extends LogOutputDto | LogOutputDto[]>(data: T): LogOutputCustomDto<T> => {
-    const output: LogOutputCustomDto<T> = {
+export const outputCustomDto = <T extends LogOutputDto | LogOutputDto[]>(data: T): LogCustomOutputDto<T> => {
+    const output: LogCustomOutputDto<T> = {
         data,
     };
 
@@ -31,6 +31,12 @@ export const outputCustomDto = <T extends LogOutputDto | LogOutputDto[]>(data: T
             { method: 'get', url: `${url}/key/:key`, description: 'Find a log by key' },
         ];
     }
+
+    return output;
+};
+
+export const outputFilterDto = <T>(input: T): T => {
+    const output = { ...input };
 
     return output;
 };

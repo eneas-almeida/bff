@@ -1,1 +1,1 @@
-export * from './log-mongoose.schema';
+export * from './logs-mongoose.schema';
