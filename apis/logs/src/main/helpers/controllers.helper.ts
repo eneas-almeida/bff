@@ -1,18 +1,44 @@
-import { LogFilterQueryBuildDto } from '@/usecases/contracts';
+interface CreatedAt {
+    $gte?: Date;
+    $lte?: Date;
+}
 
-export const queryBuild = (input: any): LogFilterQueryBuildDto => {
-    const { q, page, limit, order, orderBy, initDate, endDate } = input;
+export const queryBuild = (req: any) => {
+    const fnQuery = (search: string, initDate: string, endDate: string): any => {
+        const customFields = [];
 
-    const output: LogFilterQueryBuildDto = {
-        skip: page ? (parseInt(page) - 1) * parseInt(limit) : 0,
-        limit: limit ? parseInt(limit) : 10,
+        const betweenDates: CreatedAt = {};
+
+        if (initDate) betweenDates.$gte = new Date(initDate);
+        if (endDate) betweenDates.$lte = new Date(endDate);
+
+        if (initDate || endDate) {
+            customFields.push({ createdAt: { ...betweenDates } });
+        }
+
+        const regex = new RegExp(search, 'i');
+
+        return {
+            $and: [
+                { $or: [{ request: { $regex: regex } }, { response: { $regex: regex } }] },
+                ...customFields,
+            ],
+        };
     };
 
-    if (q) output.q = q;
-    if (order) output.order = order;
-    if (orderBy) output.orderBy = orderBy;
-    if (initDate) output.createdAt = { $gte: new Date(initDate) };
-    if (endDate) output.createdAt = { ...output.createdAt, $lte: new Date(endDate) };
+    const fnLimit = (limit: string): number => {
+        return limit ? parseInt(limit) : 10;
+    };
 
-    return output;
+    const fnSkip = (page: string, limit: string): number => {
+        return page ? (parseInt(page) - 1) * parseInt(limit) : 0;
+    };
+
+    const { q, initDate, endDate, limit, page } = req;
+
+    return {
+        query: fnQuery(q, initDate, endDate),
+        limit: fnLimit(limit),
+        skip: fnSkip(page, limit),
+    };
 };

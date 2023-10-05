@@ -1,10 +1,8 @@
-type OrderType = 'asc' | 'desc';
-
-export interface FilterInputDto {
-    q?: string;
+export interface QueryBuildOutput {
+    query?: any;
+    limit?: number;
     page?: number;
-    pageSize?: number;
     skip?: number;
     order?: string;
-    orderBy?: OrderType;
+    orderBy?: string;
 }

@@ -19,25 +19,14 @@ export interface LogOutputDto {
 
 export interface LogFilterInputDto {
     q?: string;
+    query?: any;
     limit?: number;
+    skip?: number;
     page?: number;
     order?: string;
     orderBy?: string;
     initDate?: Date;
     endDate?: Date;
-}
-
-export interface LogFilterQueryBuildDto {
-    q?: string;
-    limit?: number;
-    page?: number;
-    skip?: number;
-    order?: string;
-    orderBy?: string;
-    createdAt?: {
-        $gte?: Date;
-        $lte?: Date;
-    };
 }
 
 export interface LogCustomOutputDto<T extends LogOutputDto | LogOutputDto[]> {

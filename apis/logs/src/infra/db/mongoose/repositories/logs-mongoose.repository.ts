@@ -1,6 +1,6 @@
 import { LogMapper } from '@/data/mappers';
 import { LogEntityInterface, LogRepositoryInterface } from '@/domain/@shared/contracts';
-import { LogFilterQueryBuildDto } from '@/usecases/contracts';
+import { LogFilterInputDto } from '@/usecases/contracts';
 import { LogSchema } from '../schemas';
 
 export class LogMongooseRepository implements LogRepositoryInterface {
@@ -18,11 +18,11 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         }
     }
 
-    async filter(input: LogFilterQueryBuildDto): Promise<LogEntityInterface[]> {
+    async filter(input: LogFilterInputDto): Promise<LogEntityInterface[]> {
         try {
-            const { skip, limit } = input;
+            const { query, skip, limit } = input;
 
-            const documents = await LogSchema.find().skip(skip).limit(limit).exec();
+            const documents = await LogSchema.find(query).skip(skip).limit(limit).exec();
 
             return documents.length ? LogMapper.schemasToEntityCollection(documents) : [];
         } catch (e) {
