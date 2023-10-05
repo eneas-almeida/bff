@@ -12,6 +12,7 @@ export const createLogControllerAdapter = (controller: LogControllerInterface) =
 
 export const filterLogsControllerAdapter = (controller: LogControllerInterface) => {
     return async (req: Request, res: Response) => {
+        console.log(queryBuild(req.query));
         const httpResponse = await controller.filter(queryBuild(req.query));
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
