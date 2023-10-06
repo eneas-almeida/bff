@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 export const queryBuild = (req: any) => {
     const fnSearchInFields = (search: string, fields: string): any => {
         if (search && fields) {
@@ -13,42 +15,42 @@ export const queryBuild = (req: any) => {
         return null;
     };
 
-    const fnConvertDateToUTC = (date: string): Date => {
-        const strParts = date.split('T');
+    const fnDateAdapter = (date: string, flag: string): Date => {
+        const strDateParts = date.split(date.at(10));
 
-        let strDate = null;
-
-        if (strParts.length === 2) {
-            strDate = new Date(date).toISOString();
-        } else {
-            strDate = new Date(`${date} 00:00:00`).toISOString();
+        if (strDateParts.length === 1) {
+            date =
+                flag === 'start'
+                    ? moment(date).format('YYYY-MM-DD').toString().concat('T02:59:59.999Z')
+                    : moment(date).add(1, 'day').format('YYYY-MM-DD').toString().concat('T03:00:00.000Z');
         }
 
-        return new Date(strDate);
+        return moment.utc(date).toDate();
     };
 
-    const fnBetweenDates = (initDate: string, endDate: string): any => {
-        const betweenDates: { $gte?: Date; $lte?: Date } = {};
+    const fnBetweenDates = (startDate: string, endDate: string): any => {
+        const betweenDates: {
+            $gte?: Date;
+            $lte?: Date;
+        } = {};
 
-        const dt = fnConvertDateToUTC(initDate);
+        if (startDate) betweenDates.$gte = fnDateAdapter(startDate, 'start');
+        if (endDate) betweenDates.$lte = fnDateAdapter(endDate, 'end');
 
-        if (initDate) betweenDates.$gte = new Date(initDate);
-        if (endDate) betweenDates.$lte = new Date(endDate);
-
-        if (initDate || endDate) {
+        if (startDate || endDate) {
             return { createdAt: { ...betweenDates } };
         }
 
         return null;
     };
 
-    const fnQuery = (search: string, fields: string, initDate: string, endDate: string): any => {
+    const fnQuery = (search: string, fields: string, startDate: string, endDate: string): any => {
         const customFields = [];
 
         const searchInFields = fnSearchInFields(search, fields);
         if (searchInFields) customFields.push(searchInFields);
 
-        const betweenDates = fnBetweenDates(initDate, endDate);
+        const betweenDates = fnBetweenDates(startDate, endDate);
         if (betweenDates) customFields.push(betweenDates);
 
         if (!customFields.length) return null;
@@ -66,10 +68,10 @@ export const queryBuild = (req: any) => {
         return page ? (parseInt(page) - 1) * parseInt(limit) : 0;
     };
 
-    const { search, fields, initDate, endDate, limit, page } = req;
+    const { search, fields, startDate, endDate, limit, page } = req;
 
     return {
-        query: fnQuery(search, fields, initDate, endDate),
+        query: fnQuery(search, fields, startDate, endDate),
         limit: fnLimit(limit),
         skip: fnSkip(page, limit),
     };
