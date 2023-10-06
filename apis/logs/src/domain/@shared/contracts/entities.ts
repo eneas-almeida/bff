@@ -1,7 +1,5 @@
 import { Notification } from '../notification';
 
-export type LogOrderFilter = 'key';
-
 export interface LogEntityInterface {
     get id(): string;
     get origin(): string;

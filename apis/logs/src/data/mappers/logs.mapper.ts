@@ -3,7 +3,7 @@ import { LogFactory } from '@/domain/logs/factory';
 import { LogCreateInputDto, LogOutputDto } from '@/usecases/contracts';
 
 export class LogMapper {
-    static dataToDto(data: any): LogCreateInputDto {
+    static dataAnyToDto(data: any): LogCreateInputDto {
         return {
             key: data.key,
             origin: data.origin,
@@ -31,7 +31,7 @@ export class LogMapper {
         return entities.map((entity) => LogMapper.entityToDto(entity));
     }
 
-    static entityToSchemaData(entity: LogEntityInterface) {
+    static entityToDocument(entity: LogEntityInterface) {
         return {
             origin: entity.origin,
             key: entity.key,
@@ -40,16 +40,16 @@ export class LogMapper {
         };
     }
 
-    static schemaToEntity(schema: any): LogEntityInterface {
-        const entity = LogFactory.create(schema.origin, schema.key, schema.request, schema.response);
+    static documentToEntity(doc: any): LogEntityInterface {
+        const entity = LogFactory.create(doc.origin, doc.key, doc.request, doc.response);
 
-        entity.setId(schema.id);
-        entity.setCreatedAt(schema.createdAt);
+        entity.setId(doc.id);
+        entity.setCreatedAt(doc.createdAt);
 
         return entity;
     }
 
-    static schemasToEntityCollection(schemas: any[]): LogEntityInterface[] {
-        return schemas.map((schema) => LogMapper.schemaToEntity(schema));
+    static documentsToEntityCollection(docs: any[]): LogEntityInterface[] {
+        return docs.map((doc) => LogMapper.documentToEntity(doc));
     }
 }

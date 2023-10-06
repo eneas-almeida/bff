@@ -5,7 +5,7 @@ import { LogSchema } from '../schemas';
 
 export class LogMongooseRepository implements LogRepositoryInterface {
     async create(entity: LogEntityInterface): Promise<LogEntityInterface> {
-        const data = LogMapper.entityToSchemaData(entity);
+        const data = LogMapper.entityToDocument(entity);
 
         try {
             const document = await LogSchema.create(data);
@@ -24,7 +24,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
 
             const documents = await LogSchema.find(query).skip(skip).limit(limit).exec();
 
-            return documents.length ? LogMapper.schemasToEntityCollection(documents) : [];
+            return documents.length ? LogMapper.documentsToEntityCollection(documents) : [];
         } catch (e) {
             throw new Error(e.message);
         }
@@ -34,7 +34,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         try {
             const document = await LogSchema.findById(id);
 
-            return document ? LogMapper.schemaToEntity(document) : null;
+            return document ? LogMapper.documentToEntity(document) : null;
         } catch (e) {
             throw new Error(e.message);
         }
@@ -44,7 +44,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         try {
             const document = await LogSchema.findOne({ key });
 
-            return document ? LogMapper.schemaToEntity(document) : null;
+            return document ? LogMapper.documentToEntity(document) : null;
         } catch (e) {
             throw new Error(e.message);
         }

@@ -20,7 +20,7 @@ describe('Filter logs (unity test)', () => {
     test('Should return a log unity', async () => {
         const filterLogUseCase = new FilterLogsUseCase(MockRepository());
 
-        const output = await filterLogUseCase.execute();
+        const output = await filterLogUseCase.execute(null);
 
         expect(output.data.length).toEqual(3);
     });

@@ -18,14 +18,13 @@ export interface LogOutputDto {
 }
 
 export interface LogFilterInputDto {
-    q?: string;
+    search?: string;
     query?: any;
     limit?: number;
     skip?: number;
-    page?: number;
     order?: string;
     orderBy?: string;
-    initDate?: Date;
+    startDate?: Date;
     endDate?: Date;
 }
 

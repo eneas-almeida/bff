@@ -4,11 +4,9 @@ import {
     FindOneLogByIdUseCase,
     FindOneLogByKeyUseCase,
 } from '@/usecases';
-import { LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/usecases/contracts';
+import { LogCreateInputDto, LogCustomOutputDto, LogFilterInputDto, LogOutputDto } from '@/usecases/contracts';
 import { HttpResponse, LogControllerInterface } from '../contracts';
 import { create, ok } from '../helpers';
-import { FilterInputDto } from '@/shared/filter';
-import { LogOrderFilter } from '@/domain/@shared/contracts';
 
 export class LogController implements LogControllerInterface {
     constructor(
@@ -22,9 +20,7 @@ export class LogController implements LogControllerInterface {
         return create(await this.createLogUseCase.execute(input));
     }
 
-    async filter(
-        input: FilterInputDto<LogOrderFilter>
-    ): Promise<HttpResponse<LogCustomOutputDto<LogOutputDto[]>>> {
+    async filter(input: LogFilterInputDto): Promise<HttpResponse<LogCustomOutputDto<LogOutputDto[]>>> {
         return ok(await this.filterLogsUseCase.execute(input));
     }
 
