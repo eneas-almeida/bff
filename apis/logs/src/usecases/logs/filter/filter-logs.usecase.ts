@@ -1,13 +1,14 @@
 import { LogMapper } from '@/data/mappers';
 import { LogRepositoryInterface } from '@/domain/@shared/contracts';
 import { AppError } from '@/main/errors';
-import { LogCustomOutputDto, LogFilterInputDto, LogOutputDto } from '@/usecases/contracts';
-import { outputCustomDto } from '@/usecases/helpers';
+import { GenericFilterInputDto } from '@/shared';
+import { LogCustomOutputDto, LogOutputDto } from '@/usecases/contracts';
+import { customOutputDto } from '@/usecases/helpers';
 
 export class FilterLogsUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}
 
-    async execute(input: LogFilterInputDto): Promise<LogCustomOutputDto<LogOutputDto[]>> {
+    async execute(input: GenericFilterInputDto): Promise<LogCustomOutputDto<LogOutputDto[]>> {
         const entities = await this.logRepository.filter(input);
 
         if (!entities.length) {
@@ -16,6 +17,6 @@ export class FilterLogsUseCase {
 
         const outputDtoCollection = LogMapper.entitiesToDtoCollection(entities);
 
-        return outputCustomDto(outputDtoCollection);
+        return customOutputDto(outputDtoCollection);
     }
 }

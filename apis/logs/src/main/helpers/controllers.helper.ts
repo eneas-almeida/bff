@@ -1,13 +1,23 @@
 import moment from 'moment-timezone';
 
-export const queryBuild = (req: any) => {
+export const filterLogInput = (queryRequest: any) => {
     const fnSearchInFields = (search: string, fields: string): any => {
         if (search && fields) {
             const fieldsPart = fields.replace(/\s/g, '').split(',');
 
+            const fieldsToSearch = ['origin', 'key', 'request', 'response'];
+
+            let error = false;
+
+            fieldsPart.forEach((field) => {
+                if (!fieldsToSearch.includes(field)) error = true;
+            });
+
+            if (error) return null;
+
             const regex = new RegExp(search, 'i');
 
-            const orFields = fieldsPart.map((field: string) => ({ [field]: { $regex: regex } }));
+            const orFields = fieldsPart.map((field) => ({ [field]: { $regex: regex } }));
 
             return { $or: orFields };
         }
@@ -68,10 +78,42 @@ export const queryBuild = (req: any) => {
         return page ? (parseInt(page) - 1) * parseInt(limit) : 0;
     };
 
-    const { search, fields, startDate, endDate, limit, page } = req;
+    const fnSort = (sort: string): any => {
+        if (!sort) return null;
+
+        const strParts = sort.replaceAll(' ', '').split(',');
+
+        let sortParts = null,
+            error = false;
+
+        const aux: any = {};
+
+        strParts.forEach((strPart: string) => {
+            sortParts = strPart.split(':');
+
+            if (sortParts.length !== 2) {
+                error = true;
+                return;
+            }
+
+            const [name, order] = sortParts;
+
+            if (!['asc', 'desc'].includes(order)) {
+                error = true;
+                return;
+            }
+
+            aux[name] = order === 'asc' ? 1 : -1;
+        });
+
+        return error ? null : aux;
+    };
+
+    const { search, fields, sort, startDate, endDate, limit, page } = queryRequest;
 
     return {
         query: fnQuery(search, fields, startDate, endDate),
+        sort: fnSort(sort),
         limit: fnLimit(limit),
         skip: fnSkip(page, limit),
     };

@@ -1,5 +1,5 @@
 import { Hateos } from './hateos';
-import { PaginationDto } from './pagination';
+import { PaginationOutputDto } from './pagination';
 
 export interface LogCreateInputDto {
     origin: string;
@@ -17,19 +17,8 @@ export interface LogOutputDto {
     createdAt: Date;
 }
 
-export interface LogFilterInputDto {
-    search?: string;
-    query?: any;
-    limit?: number;
-    skip?: number;
-    order?: string;
-    orderBy?: string;
-    startDate?: Date;
-    endDate?: Date;
-}
-
 export interface LogCustomOutputDto<T extends LogOutputDto | LogOutputDto[]> {
-    pagination?: PaginationDto;
+    pagination?: PaginationOutputDto;
     data: T;
     _links?: Hateos[];
 }

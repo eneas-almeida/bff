@@ -1,7 +1,7 @@
 import { LogMapper } from '@/data/mappers';
 import { LogRepositoryInterface } from '@/domain/@shared/contracts';
 import { LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/usecases/contracts';
-import { outputCustomDto } from '@/usecases/helpers';
+import { customOutputDto } from '@/usecases/helpers';
 
 export class CreateLogUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}
@@ -13,6 +13,6 @@ export class CreateLogUseCase {
 
         const outputDto = LogMapper.entityToDto(entity);
 
-        return outputCustomDto(outputDto);
+        return customOutputDto(outputDto);
     }
 }

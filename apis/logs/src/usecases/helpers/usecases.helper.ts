@@ -2,7 +2,7 @@ import { envs } from '@/main/configs';
 import { api } from '@/main/utils';
 import { LogCustomOutputDto, LogOutputDto } from '../contracts';
 
-export const outputCustomDto = <T extends LogOutputDto | LogOutputDto[]>(data: T): LogCustomOutputDto<T> => {
+export const customOutputDto = <T extends LogOutputDto | LogOutputDto[]>(data: T): LogCustomOutputDto<T> => {
     const output: LogCustomOutputDto<T> = {
         data,
     };
@@ -36,7 +36,5 @@ export const outputCustomDto = <T extends LogOutputDto | LogOutputDto[]>(data: T
 };
 
 export const outputFilterDto = <T>(input: T): T => {
-    const output = { ...input };
-
-    return output;
+    return { ...input };
 };

@@ -5,8 +5,8 @@ import { LogCreateInputDto, LogOutputDto } from '@/usecases/contracts';
 export class LogMapper {
     static dataAnyToDto(data: any): LogCreateInputDto {
         return {
-            key: data.key,
             origin: data.origin,
+            key: data.key,
             request: data.request,
             response: data.response,
         };
