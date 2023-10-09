@@ -1,5 +1,5 @@
 import { Errback, NextFunction, Request, Response } from 'express';
-import { NotificationError } from '@/domain/@shared/errors';
+import { NotificationError } from '@/domain/@shared';
 import { envs } from '../configs';
 import { AppError } from '../errors';
 import { errorMessageAdapter } from '../helpers';

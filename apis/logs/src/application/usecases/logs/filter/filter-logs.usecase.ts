@@ -1,7 +1,11 @@
-import { LogCustomOutputDto, LogOutputDto } from '@/application/contracts';
+import {
+    FilterInputDto,
+    LogCustomOutputDto,
+    LogOutputDto,
+    LogRepositoryInterface,
+} from '@/application/contracts';
 import { customOutputDto } from '@/application/helpers';
-import { LogMapper } from '@/data/mappers';
-import { FilterInputDto, LogRepositoryInterface } from '@/domain/@shared/contracts';
+import { LogMapper } from '@/application/mappers';
 import { AppError } from '@/main/errors';
 
 export class FilterLogsUseCase {

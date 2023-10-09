@@ -1,6 +1,6 @@
-import { Id, LogEntityInterface } from '@/domain/@shared/contracts';
-import { EntityAbstract } from '@/domain/@shared/entity';
-import { LogValidatorFactory } from '../factory';
+import { LogEntityInterface } from '@/domain/@shared/contracts';
+import { LogValidatorFactory } from '../factory/log-validator.factory';
+import { EntityAbstract } from '@/domain/@shared';
 
 export class LogEntity extends EntityAbstract implements LogEntityInterface {
     private _origin: string;
@@ -8,7 +8,7 @@ export class LogEntity extends EntityAbstract implements LogEntityInterface {
     private _request: string;
     private _response: string;
 
-    constructor(id: Id, origin: string, key: string, request: string, response: string) {
+    constructor(id: string, origin: string, key: string, request: string, response: string) {
         super(id);
         this._origin = origin;
         this._key = key;

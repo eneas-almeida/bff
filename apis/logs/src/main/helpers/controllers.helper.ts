@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 
-export const filterLogInput = (queryRequest: any) => {
+export const buildCustomFilter = (queryRequest: any) => {
     const fnSearchInFields = (search: string, fields: string): any => {
         if (!search || !fields) return null;
 

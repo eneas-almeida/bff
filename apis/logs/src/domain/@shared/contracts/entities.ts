@@ -1,4 +1,4 @@
-import { Notification } from '../notification';
+import { Notification } from '..';
 
 export interface LogEntityInterface {
     get id(): string;

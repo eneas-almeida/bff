@@ -1,13 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Notification } from '../notification';
-import { Id } from '../contracts';
+import { Notification } from '..';
 
 export abstract class EntityAbstract {
     protected _id: string;
     protected _createdAt: Date;
     protected _notification: Notification;
 
-    constructor(id: Id) {
+    constructor(id: string) {
         this._id = id || uuidv4();
         this._createdAt = new Date();
         this._notification = new Notification();

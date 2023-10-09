@@ -1,6 +1,6 @@
 import * as yup from 'yup';
+import { NotificationError } from '@/domain/@shared';
 import { LogEntityInterface, ValidatorInterface } from '@/domain/@shared/contracts';
-import { NotificationError } from '@/domain/@shared/errors';
 
 export class LogYupValidator implements ValidatorInterface<LogEntityInterface> {
     validate(entity: LogEntityInterface): void {

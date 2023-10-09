@@ -1,4 +1,4 @@
-import { LogFactory } from '@/domain/logs/factory';
+import { LogFactory } from '@/domain/logs';
 import { FilterLogsUseCase } from './filter-logs.usecase';
 
 const MockRepository = () => {

@@ -1,11 +1,10 @@
-import { LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/application/contracts';
+import { FilterInputDto, LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/application/contracts';
 import {
     CreateLogUseCase,
     FilterLogsUseCase,
     FindOneLogByIdUseCase,
     FindOneLogByKeyUseCase,
-} from '@/application/usecases';
-import { FilterInputDto } from '@/domain/@shared/contracts';
+} from '@/application/usecases/logs';
 import { HttpResponse, LogControllerInterface } from '../contracts';
 import { create, ok } from '../helpers';
 

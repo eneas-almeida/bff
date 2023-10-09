@@ -1,4 +1,4 @@
-import { LogFactory } from '@/domain/logs/factory';
+import { LogFactory } from '@/domain/logs';
 import { FindOneLogByKeyUseCase } from './find-one-log-by-key.usecase';
 
 const MockRepository = () => {

@@ -1,5 +1,6 @@
-import { LogMapper } from '@/data/mappers';
-import { FilterInputDto, LogEntityInterface, LogRepositoryInterface } from '@/domain/@shared/contracts';
+import { FilterInputDto, LogRepositoryInterface } from '@/application/contracts';
+import { LogMapper } from '@/application/mappers';
+import { LogEntityInterface } from '@/domain/@shared/contracts';
 import { LogSchema } from '../schemas';
 
 export class LogMongooseRepository implements LogRepositoryInterface {

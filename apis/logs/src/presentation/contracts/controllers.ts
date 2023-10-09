@@ -1,10 +1,10 @@
 import {
+    FilterInputDto,
     HealthzOutputDto,
     LogCreateInputDto,
     LogCustomOutputDto,
     LogOutputDto,
 } from '@/application/contracts';
-import { FilterInputDto } from '@/domain/@shared/contracts';
 import { HttpResponse } from './http';
 
 export interface HealthzControllerInterface {

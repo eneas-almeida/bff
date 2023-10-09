@@ -1,6 +1,6 @@
-import { LogEntityInterface } from '@/domain/@shared/contracts';
-import { LogFactory } from '@/domain/logs/factory';
 import { LogCreateInputDto, LogOutputDto } from '@/application/contracts';
+import { LogEntityInterface } from '@/domain/@shared/contracts';
+import { LogFactory } from '@/domain/logs';
 
 export class LogMapper {
     static dataAnyToDto(data: any): LogCreateInputDto {

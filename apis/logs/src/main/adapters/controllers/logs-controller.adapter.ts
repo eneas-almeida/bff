@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { LogControllerInterface } from '@/presentation/contracts';
-import { filterLogInput } from '@/main/helpers';
+import { buildCustomFilter } from '@/main/helpers';
 
 export const createLogControllerAdapter = (controller: LogControllerInterface) => {
     return async (req: Request, res: Response) => {
@@ -12,7 +12,7 @@ export const createLogControllerAdapter = (controller: LogControllerInterface) =
 
 export const filterLogsControllerAdapter = (controller: LogControllerInterface) => {
     return async (req: Request, res: Response) => {
-        const input = filterLogInput(req.query);
+        const input = buildCustomFilter(req.query);
 
         const httpResponse = await controller.filter(input);
 
