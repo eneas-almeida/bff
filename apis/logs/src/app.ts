@@ -7,8 +7,7 @@ main.initBanner()
     .initLogger()
     .initDB()
     .then((res) => {
-        res.initRequestMiddleware()
-            .initRoutes()
+        res.initRoutes()
             .then((res) => {
                 res.initErrorMiddleware().initServer();
             })

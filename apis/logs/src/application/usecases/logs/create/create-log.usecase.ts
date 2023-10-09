@@ -1,7 +1,7 @@
+import { LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/application/contracts';
+import { customOutputDto } from '@/application/helpers';
 import { LogMapper } from '@/data/mappers';
 import { LogRepositoryInterface } from '@/domain/@shared/contracts';
-import { LogCreateInputDto, LogCustomOutputDto, LogOutputDto } from '@/usecases/contracts';
-import { customOutputDto } from '@/usecases/helpers';
 
 export class CreateLogUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}

@@ -1,6 +1,5 @@
 import { LogMapper } from '@/data/mappers';
-import { LogEntityInterface, LogRepositoryInterface } from '@/domain/@shared/contracts';
-import { GenericFilterInputDto } from '@/shared';
+import { FilterInputDto, LogEntityInterface, LogRepositoryInterface } from '@/domain/@shared/contracts';
 import { LogSchema } from '../schemas';
 
 export class LogMongooseRepository implements LogRepositoryInterface {
@@ -18,7 +17,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         }
     }
 
-    async filter(input: GenericFilterInputDto): Promise<LogEntityInterface[]> {
+    async filter(input: FilterInputDto): Promise<LogEntityInterface[]> {
         try {
             const { query, sort, skip, limit } = input;
 

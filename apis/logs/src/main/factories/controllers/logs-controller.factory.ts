@@ -6,7 +6,7 @@ import {
     FilterLogsUseCase,
     FindOneLogByIdUseCase,
     FindOneLogByKeyUseCase,
-} from '@/usecases';
+} from '@/application/usecases';
 
 export const MakeLogController = async (): Promise<LogControllerInterface> => {
     const logMongooseRepository = new LogMongooseRepository();

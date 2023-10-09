@@ -1,4 +1,3 @@
-import { LogFactory } from '@/domain/logs/factory';
 import { CreateLogUseCase } from './create-log.usecase';
 
 const input = {

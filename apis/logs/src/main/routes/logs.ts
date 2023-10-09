@@ -21,7 +21,7 @@ export default async (router: Router): Promise<void> => {
     const baseRoute = `${envs.api.version}/${basePath}`;
 
     console.log(`${basePath.toUpperCase()}`);
-    console.log(`[ok] ${baseRoute} (GET)`);
+    console.log(`[ok] ${baseRoute} (POST)`);
     console.log(`[ok] ${baseRoute} (GET)`);
     console.log(`[ok] ${baseRoute}/:id (GET)`);
     console.log(`[ok] ${baseRoute}/key/:key (GET)`);

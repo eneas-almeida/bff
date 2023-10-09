@@ -1,10 +1,7 @@
-type OrderType = 'asc' | 'desc';
-
-export interface FilterEntityCustomInputDto<T> {
-    fields?: T;
-    page?: number;
-    pageSize?: number;
+export interface FilterInputDto {
+    query?: any;
+    limit?: number;
     skip?: number;
-    order?: T;
-    orderBy?: OrderType;
+    page?: number;
+    sort?: any;
 }

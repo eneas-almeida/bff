@@ -2,27 +2,19 @@ import moment from 'moment-timezone';
 
 export const filterLogInput = (queryRequest: any) => {
     const fnSearchInFields = (search: string, fields: string): any => {
-        if (search && fields) {
-            const fieldsPart = fields.replace(/\s/g, '').split(',');
+        if (!search || !fields) return null;
 
-            const fieldsToSearch = ['origin', 'key', 'request', 'response'];
+        const fieldsParts = fields.replace(/\s/g, '').split(',');
 
-            let error = false;
+        const fieldsToSearch = ['origin', 'key', 'request', 'response'];
 
-            fieldsPart.forEach((field) => {
-                if (!fieldsToSearch.includes(field)) error = true;
-            });
+        const error = !fieldsParts.every((field) => fieldsToSearch.includes(field));
 
-            if (error) return null;
+        if (error) return null;
 
-            const regex = new RegExp(search, 'i');
-
-            const orFields = fieldsPart.map((field) => ({ [field]: { $regex: regex } }));
-
-            return { $or: orFields };
-        }
-
-        return null;
+        return {
+            $or: fieldsParts.map((field) => ({ [field]: { $regex: new RegExp(search, 'i') } })),
+        };
     };
 
     const fnDateAdapter = (date: string, flag: string): Date => {
@@ -47,11 +39,7 @@ export const filterLogInput = (queryRequest: any) => {
         if (startDate) betweenDates.$gte = fnDateAdapter(startDate, 'start');
         if (endDate) betweenDates.$lte = fnDateAdapter(endDate, 'end');
 
-        if (startDate || endDate) {
-            return { createdAt: { ...betweenDates } };
-        }
-
-        return null;
+        return startDate || endDate ? { createdAt: { ...betweenDates } } : null;
     };
 
     const fnQuery = (search: string, fields: string, startDate: string, endDate: string): any => {
@@ -65,9 +53,7 @@ export const filterLogInput = (queryRequest: any) => {
 
         if (!customFields.length) return null;
 
-        return {
-            $and: [...customFields],
-        };
+        return { $and: [...customFields] };
     };
 
     const fnLimit = (limit: string): number => {
@@ -98,12 +84,12 @@ export const filterLogInput = (queryRequest: any) => {
 
             const [name, order] = sortParts;
 
-            if (!['asc', 'desc'].includes(order)) {
+            if (!['asc', 'desc'].includes(order.toLowerCase())) {
                 error = true;
                 return;
             }
 
-            aux[name] = order === 'asc' ? 1 : -1;
+            aux[name] = order.toLowerCase() === 'asc' ? 1 : -1;
         });
 
         return error ? null : aux;

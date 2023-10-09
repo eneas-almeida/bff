@@ -6,7 +6,6 @@ import {
     mongodbConfig,
     routesConfig,
     serverConfig,
-    requestConfig,
 } from './configs';
 
 export class MainBuild {
@@ -26,11 +25,6 @@ export class MainBuild {
 
     async initDB() {
         await mongodbConfig();
-        return this;
-    }
-
-    initRequestMiddleware() {
-        requestConfig(app);
         return this;
     }
 

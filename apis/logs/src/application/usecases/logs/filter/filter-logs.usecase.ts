@@ -1,14 +1,13 @@
+import { LogCustomOutputDto, LogOutputDto } from '@/application/contracts';
+import { customOutputDto } from '@/application/helpers';
 import { LogMapper } from '@/data/mappers';
-import { LogRepositoryInterface } from '@/domain/@shared/contracts';
+import { FilterInputDto, LogRepositoryInterface } from '@/domain/@shared/contracts';
 import { AppError } from '@/main/errors';
-import { GenericFilterInputDto } from '@/shared';
-import { LogCustomOutputDto, LogOutputDto } from '@/usecases/contracts';
-import { customOutputDto } from '@/usecases/helpers';
 
 export class FilterLogsUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}
 
-    async execute(input: GenericFilterInputDto): Promise<LogCustomOutputDto<LogOutputDto[]>> {
+    async execute(input: FilterInputDto): Promise<LogCustomOutputDto<LogOutputDto[]>> {
         const entities = await this.logRepository.filter(input);
 
         if (!entities.length) {
