@@ -2,15 +2,23 @@ import moment from 'moment-timezone';
 
 export const buildCustomFilter = (queryRequest: any) => {
     const fnSearchInFields = (search: string, fields: string): any => {
-        if (!search || !fields) return null;
+        if (!search || search.length <= 3) return null;
 
-        const fieldsParts = fields.replace(/\s/g, '').split(',');
+        let fieldsParts = fields ? fields.replaceAll(' ', '').split(',') : null;
 
         const fieldsToSearch = ['origin', 'key', 'request', 'response'];
 
-        const error = !fieldsParts.every((field) => fieldsToSearch.includes(field));
+        if (!fieldsParts || (fieldsParts.length === 1 && fieldsParts[0] === '*')) {
+            return {
+                $or: fieldsToSearch.map((field) => ({ [field]: { $regex: new RegExp(search, 'i') } })),
+            };
+        }
 
-        if (error) return null;
+        const containsInvalidField = !fieldsParts.every((field) =>
+            fieldsToSearch.includes(field.toLowerCase())
+        );
+
+        if (containsInvalidField) return null;
 
         return {
             $or: fieldsParts.map((field) => ({ [field]: { $regex: new RegExp(search, 'i') } })),
@@ -53,7 +61,9 @@ export const buildCustomFilter = (queryRequest: any) => {
 
         if (!customFields.length) return null;
 
-        return { $and: [...customFields] };
+        return {
+            $and: [...customFields],
+        };
     };
 
     const fnLimit = (limit: string): number => {
@@ -74,23 +84,23 @@ export const buildCustomFilter = (queryRequest: any) => {
 
         const aux: any = {};
 
-        strParts.forEach((strPart: string) => {
+        for (const strPart of strParts) {
             sortParts = strPart.split(':');
 
             if (sortParts.length !== 2) {
                 error = true;
-                return;
+                break;
             }
 
             const [name, order] = sortParts;
 
             if (!['asc', 'desc'].includes(order.toLowerCase())) {
                 error = true;
-                return;
+                break;
             }
 
             aux[name] = order.toLowerCase() === 'asc' ? 1 : -1;
-        });
+        }
 
         return error ? null : aux;
     };
@@ -102,5 +112,6 @@ export const buildCustomFilter = (queryRequest: any) => {
         sort: fnSort(sort),
         limit: fnLimit(limit),
         skip: fnSkip(page, limit),
+        page: page,
     };
 };
