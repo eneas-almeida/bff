@@ -42,3 +42,11 @@ export const findOneAccountByEmailControllerAdapter = (controller: AccountContro
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };
 };
+
+export const deleteAllAccountsControllerAdapter = (controller: AccountControllerInterface) => {
+    return async (_req: Request, res: Response) => {
+        const httpResponse = await controller.deleteAll();
+
+        res.status(httpResponse.statusCode).json(httpResponse.body);
+    };
+};

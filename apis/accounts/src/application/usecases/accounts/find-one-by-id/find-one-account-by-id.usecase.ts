@@ -1,15 +1,15 @@
 import {
-    AccountCustomOutputDto,
-    AccountOutputDto,
-    AccountRepositoryInterface,
+    AccountsCustomOutputDto,
+    AccountsOutputDto,
+    AccountsRepositoryInterface,
 } from '@/application/contracts';
 import { customOutputDto } from '@/application/helpers';
 import { AccountMapper } from '@/application/mappers';
 
 export class FindOneAccountByIdUseCase {
-    constructor(private readonly accountsRepository: AccountRepositoryInterface) {}
+    constructor(private readonly accountsRepository: AccountsRepositoryInterface) {}
 
-    async execute(id: string): Promise<AccountCustomOutputDto<AccountOutputDto>> {
+    async execute(id: string): Promise<AccountsCustomOutputDto<AccountsOutputDto>> {
         const entity = await this.accountsRepository.findOneById(id);
 
         if (!entity) {

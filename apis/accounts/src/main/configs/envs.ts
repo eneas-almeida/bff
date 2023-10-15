@@ -58,9 +58,11 @@ export const envs = {
             ? parseTo(env.AGENTKEEPALIVE_FREE_SOCKET_TIMEOUT, Type.NUMBER)
             : null,
     },
-    integrations: {
-        logs: {
-            baseUrl: env.INTEGRATIONS_LOGS_BASE_URL,
+    external: {
+        api: {
+            logs: {
+                baseUrl: env.EXTERNAL_API_LOGS_BASE_URL,
+            },
         },
     },
 };

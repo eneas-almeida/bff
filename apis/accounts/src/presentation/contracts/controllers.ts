@@ -1,7 +1,7 @@
 import {
-    AccountCreateInputDto,
-    AccountCustomOutputDto,
-    AccountOutputDto,
+    AccountsCreateInputDto,
+    AccountsCustomOutputDto,
+    AccountsOutputDto,
     FilterInputDto,
     HealthzOutputDto,
 } from '@/application/contracts';
@@ -12,8 +12,11 @@ export interface HealthzControllerInterface {
 }
 
 export interface AccountControllerInterface {
-    create: (input: AccountCreateInputDto) => Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto>>>;
-    filter: (input: FilterInputDto) => Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto[]>>>;
-    findOneById: (id: string) => Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto>>>;
-    findOneByEmail: (email: string) => Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto>>>;
+    create: (
+        input: AccountsCreateInputDto
+    ) => Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto>>>;
+    filter: (input: FilterInputDto) => Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto[]>>>;
+    findOneById: (id: string) => Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto>>>;
+    findOneByEmail: (email: string) => Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto>>>;
+    deleteAll: () => Promise<HttpResponse<void>>;
 }

@@ -1,9 +1,9 @@
-import { FilterInputDto, AccountRepositoryInterface } from '@/application/contracts';
+import { FilterInputDto, AccountsRepositoryInterface } from '@/application/contracts';
 import { AccountMapper } from '@/application/mappers';
 import { AccountEntityInterface } from '@/domain/@shared/contracts';
 import { AccountSchema } from '../schemas';
 
-export class AccountMongooseRepository implements AccountRepositoryInterface {
+export class AccountMongooseRepository implements AccountsRepositoryInterface {
     async create(entity: AccountEntityInterface): Promise<AccountEntityInterface> {
         const data = AccountMapper.entityToDocument(entity);
 
@@ -45,6 +45,14 @@ export class AccountMongooseRepository implements AccountRepositoryInterface {
             const document = await AccountSchema.findOne({ email });
 
             return document ? AccountMapper.documentToEntity(document) : null;
+        } catch (e) {
+            throw new Error(e.message);
+        }
+    }
+
+    async deleteAll(): Promise<void> {
+        try {
+            await AccountSchema.deleteMany();
         } catch (e) {
             throw new Error(e.message);
         }

@@ -1,41 +1,40 @@
 import {
-    AccountCreateInputDto,
-    AccountCustomOutputDto,
-    AccountOutputDto,
+    AccountsCreateInputDto,
+    AccountsCustomOutputDto,
+    AccountsOutputDto,
+    AccountsUseCaseInterface,
     FilterInputDto,
 } from '@/application/contracts';
-import {
-    CreateAccountUseCase,
-    FilterAccountsUseCase,
-    FindOneAccountByEmailUseCase,
-    FindOneAccountByIdUseCase,
-} from '@/application/usecases/accounts';
 import { AccountControllerInterface, HttpResponse } from '../contracts';
 import { create, ok } from '../helpers';
 
 export class AccountController implements AccountControllerInterface {
-    constructor(
-        private readonly createAccountUseCase: CreateAccountUseCase,
-        private readonly filterAccountsUseCase: FilterAccountsUseCase,
-        private readonly findOneAccountByIdUseCase: FindOneAccountByIdUseCase,
-        private readonly findOneAccountByEmailUseCase: FindOneAccountByEmailUseCase
-    ) {}
+    constructor(private readonly useCases: AccountsUseCaseInterface) {}
 
     async create(
-        input: AccountCreateInputDto
-    ): Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto>>> {
-        return create(await this.createAccountUseCase.execute(input));
+        input: AccountsCreateInputDto
+    ): Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto>>> {
+        const output = await this.useCases.create(input);
+        return create(output);
     }
 
-    async filter(input: FilterInputDto): Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto[]>>> {
-        return ok(await this.filterAccountsUseCase.execute(input));
+    async filter(input: FilterInputDto): Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto[]>>> {
+        const output = await this.useCases.filter(input);
+        return ok(output);
     }
 
-    async findOneById(id: string): Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto>>> {
-        return ok(await this.findOneAccountByIdUseCase.execute(id));
+    async findOneById(id: string): Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto>>> {
+        const output = await this.useCases.findOneById(id);
+        return ok(output);
     }
 
-    async findOneByEmail(email: string): Promise<HttpResponse<AccountCustomOutputDto<AccountOutputDto>>> {
-        return ok(await this.findOneAccountByEmailUseCase.execute(email));
+    async findOneByEmail(email: string): Promise<HttpResponse<AccountsCustomOutputDto<AccountsOutputDto>>> {
+        const output = await this.useCases.findOneByEmail(email);
+        return ok(output);
+    }
+
+    async deleteAll(): Promise<HttpResponse<void>> {
+        await this.useCases.deleteAll();
+        return ok();
     }
 }

@@ -1,9 +1,9 @@
-import { AccountCreateInputDto, AccountOutputDto } from '@/application/contracts';
+import { AccountsCreateInputDto, AccountsOutputDto } from '@/application/contracts';
 import { AccountEntityInterface } from '@/domain/@shared/contracts';
 import { AccountFactory } from '@/domain/accounts';
 
 export class AccountMapper {
-    static dataAnyToDto(data: any): AccountCreateInputDto {
+    static dataAnyToDto(data: any): AccountsCreateInputDto {
         return {
             body: {
                 email: data.email,
@@ -12,12 +12,12 @@ export class AccountMapper {
         };
     }
 
-    static dtoToEntity(input: AccountCreateInputDto): AccountEntityInterface {
+    static dtoToEntity(input: AccountsCreateInputDto): AccountEntityInterface {
         const { email, password } = input.body;
         return AccountFactory.create(email, password);
     }
 
-    static entityToDto(entity: AccountEntityInterface): AccountOutputDto {
+    static entityToDto(entity: AccountEntityInterface): AccountsOutputDto {
         return {
             id: entity.id,
             email: entity.email,
@@ -26,7 +26,7 @@ export class AccountMapper {
         };
     }
 
-    static entitiesToDtoCollection(entities: AccountEntityInterface[]): AccountOutputDto[] {
+    static entitiesToDtoCollection(entities: AccountEntityInterface[]): AccountsOutputDto[] {
         return entities.map((entity) => AccountMapper.entityToDto(entity));
     }
 

@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import {
-    findOneAccountByIdControllerAdapter,
     createAccountControllerAdapter,
+    deleteAllAccountsControllerAdapter,
     filterAccountsControllerAdapter,
     findOneAccountByEmailControllerAdapter,
+    findOneAccountByIdControllerAdapter,
 } from '../adapters/controllers';
 import { envs } from '../configs';
 import { MakeAccountController } from '../factories/controllers';
@@ -17,6 +18,7 @@ export default async (router: Router): Promise<void> => {
     router.get(`/${basePath}`, filterAccountsControllerAdapter(makeAccountController));
     router.get(`/${basePath}/:id`, findOneAccountByIdControllerAdapter(makeAccountController));
     router.get(`/${basePath}/email/:email`, findOneAccountByEmailControllerAdapter(makeAccountController));
+    router.delete(`/${basePath}`, deleteAllAccountsControllerAdapter(makeAccountController));
 
     const baseRoute = `${envs.api.version}/${basePath}`;
 
@@ -25,4 +27,5 @@ export default async (router: Router): Promise<void> => {
     console.log(`[ok] ${baseRoute} (GET)`);
     console.log(`[ok] ${baseRoute}/:id (GET)`);
     console.log(`[ok] ${baseRoute}/email/:email (GET)`);
+    console.log(`[ok] ${baseRoute} (DELETE)`);
 };

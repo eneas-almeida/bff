@@ -1,10 +1,10 @@
 import { CreateAccountUseCase } from './create-account.usecase';
 
 const input = {
-    email: 'tiago@gmail.com',
-    password: 'password101010',
-    request: '{}',
-    response: '{}',
+    body: {
+        email: 'tiago@gmail.com',
+        password: 'password101010',
+    },
 };
 
 const MockRepository = () => ({
@@ -12,11 +12,16 @@ const MockRepository = () => ({
     filter: jest.fn(),
     findOneById: jest.fn(),
     findOneByEmail: jest.fn(),
+    deleteAll: jest.fn(),
+});
+
+const MockLogs = () => ({
+    create: jest.fn(),
 });
 
 describe('Create account (unity test)', () => {
     test('Should return a account unity', async () => {
-        const createAccountUseCase = new CreateAccountUseCase(MockRepository());
+        const createAccountUseCase = new CreateAccountUseCase(MockRepository(), MockLogs());
 
         const output = await createAccountUseCase.execute(input);
 

@@ -1,23 +1,11 @@
 import { envs } from '@/main/configs';
 import { api } from '@/main/utils';
-import { AccountCreateInputDto, AccountCustomOutputDto, AccountOutputDto } from '../contracts';
-import { LogsIntegrationCreateInputDto } from '@/framework/integrations/contracts';
+import { AccountsCustomOutputDto, AccountsOutputDto } from '../contracts';
 
-export const generateLog = (
-    origin: string,
-    type: string,
-    code: string,
-    key: string,
-    request: string,
-    response: string
-): LogsIntegrationCreateInputDto => {
-    return { origin, key, type, code, request, response };
-};
-
-export const customOutputDto = <T extends AccountOutputDto | AccountOutputDto[]>(
+export const customOutputDto = <T extends AccountsOutputDto | AccountsOutputDto[]>(
     data: T
-): AccountCustomOutputDto<T> => {
-    const output: AccountCustomOutputDto<T> = {
+): AccountsCustomOutputDto<T> => {
+    const output: AccountsCustomOutputDto<T> = {
         data,
     };
 
