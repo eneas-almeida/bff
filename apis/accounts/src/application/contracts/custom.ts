@@ -13,7 +13,11 @@ export interface Hateos {
 }
 
 export interface HateosOutputDto {
-    _links?: Hateos[];
+    _links?: {
+        method: string;
+        url: string;
+        description?: string;
+    }[];
 }
 
 export interface PaginationOutputDto {

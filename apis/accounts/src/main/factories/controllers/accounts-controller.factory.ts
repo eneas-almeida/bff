@@ -1,4 +1,9 @@
-import { AccountsCreateInputDto, AccountsUseCaseInterface, FilterInputDto } from '@/application/contracts';
+import {
+    AccountsCommonsInterface,
+    AccountsCreateInputDto,
+    AccountsUseCaseInterface,
+    FilterInputDto,
+} from '@/application/contracts';
 import {
     CreateAccountUseCase,
     FilterAccountsUseCase,
@@ -13,18 +18,24 @@ import { AccountControllerInterface } from '@/presentation/contracts';
 import { AccountController } from '@/presentation/controllers';
 
 export const MakeAccountController = async (): Promise<AccountControllerInterface> => {
-    const accountMongooseRepository = new AccountMongooseRepository();
-
     const axiosInstance = new AxiosHttpClient().getInstance();
-    const logsIntegration = new LogsIntegration(axiosInstance);
 
-    const createAccountUseCase = new CreateAccountUseCase(accountMongooseRepository, logsIntegration);
-    const filterAccountsFilterUseCase = new FilterAccountsUseCase(accountMongooseRepository);
-    const findOneAccountByIdUseCase = new FindOneAccountByIdUseCase(accountMongooseRepository);
-    const findOneAccountByEmailUseCase = new FindOneAccountByEmailUseCase(accountMongooseRepository);
-    const deleteAllAccountsUseCase = new DeleteAllAccountsUseCase(accountMongooseRepository);
+    const commons: AccountsCommonsInterface = {
+        repositories: {
+            accounts: new AccountMongooseRepository(),
+        },
+        integrations: {
+            logs: new LogsIntegration(axiosInstance),
+        },
+    };
 
-    const useCases: AccountsUseCaseInterface = {
+    const createAccountUseCase = new CreateAccountUseCase(commons);
+    const filterAccountsFilterUseCase = new FilterAccountsUseCase(commons);
+    const findOneAccountByIdUseCase = new FindOneAccountByIdUseCase(commons);
+    const findOneAccountByEmailUseCase = new FindOneAccountByEmailUseCase(commons);
+    const deleteAllAccountsUseCase = new DeleteAllAccountsUseCase(commons);
+
+    const useCasesAdapter: AccountsUseCaseInterface = {
         create: (input: AccountsCreateInputDto) => createAccountUseCase.execute(input),
         filter: (filter: FilterInputDto) => filterAccountsFilterUseCase.execute(filter),
         findOneById: (id: string) => findOneAccountByIdUseCase.execute(id),
@@ -32,5 +43,5 @@ export const MakeAccountController = async (): Promise<AccountControllerInterfac
         deleteAll: () => deleteAllAccountsUseCase.execute(),
     };
 
-    return new AccountController(useCases);
+    return new AccountController(useCasesAdapter);
 };

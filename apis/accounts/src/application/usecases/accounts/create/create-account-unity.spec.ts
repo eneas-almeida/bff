@@ -19,9 +19,18 @@ const MockLogs = () => ({
     create: jest.fn(),
 });
 
+const MockCommons = () => ({
+    repositories: {
+        accounts: MockRepository(),
+    },
+    integrations: {
+        logs: MockLogs(),
+    },
+});
+
 describe('Create account (unity test)', () => {
     test('Should return a account unity', async () => {
-        const createAccountUseCase = new CreateAccountUseCase(MockRepository(), MockLogs());
+        const createAccountUseCase = new CreateAccountUseCase(MockCommons());
 
         const output = await createAccountUseCase.execute(input);
 

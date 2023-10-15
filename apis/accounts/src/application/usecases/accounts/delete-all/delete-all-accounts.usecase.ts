@@ -1,9 +1,9 @@
-import { AccountsRepositoryInterface } from '@/application/contracts';
+import { AccountsCommonsInterface } from '@/application/contracts';
 
 export class DeleteAllAccountsUseCase {
-    constructor(private readonly accountsRepository: AccountsRepositoryInterface) {}
+    constructor(private readonly commons: AccountsCommonsInterface) {}
 
     async execute(): Promise<void> {
-        await this.accountsRepository.deleteAll();
+        await this.commons.repositories.accounts.deleteAll();
     }
 }

@@ -31,6 +31,7 @@ export const customOutputDto = <T extends AccountsOutputDto | AccountsOutputDto[
             { method: 'get', url, description: 'Filters accounts' },
             { method: 'get', url: `${url}/:id`, description: 'Find a account by id' },
             { method: 'get', url: `${url}/email/:email`, description: 'Find a account by email' },
+            { method: 'delete', url: `${url}`, description: 'Delete all accounts' },
         ];
     }
 

@@ -1,16 +1,16 @@
 import {
+    AccountsCommonsInterface,
     AccountsCustomOutputDto,
     AccountsOutputDto,
-    AccountsRepositoryInterface,
 } from '@/application/contracts';
 import { customOutputDto } from '@/application/helpers';
 import { AccountMapper } from '@/application/mappers';
 
 export class FindOneAccountByIdUseCase {
-    constructor(private readonly accountsRepository: AccountsRepositoryInterface) {}
+    constructor(private readonly commons: AccountsCommonsInterface) {}
 
     async execute(id: string): Promise<AccountsCustomOutputDto<AccountsOutputDto>> {
-        const entity = await this.accountsRepository.findOneById(id);
+        const entity = await this.commons.repositories.accounts.findOneById(id);
 
         if (!entity) {
             throw new Error('Account not found');

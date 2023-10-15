@@ -13,12 +13,26 @@ const MockRepository = () => {
         filter: jest.fn(),
         findOneById: jest.fn().mockResolvedValue(accounts[1]),
         findOneByEmail: jest.fn(),
+        deleteAll: jest.fn(),
     };
 };
 
+const MockLogs = () => ({
+    create: jest.fn(),
+});
+
+const MockCommons = () => ({
+    repositories: {
+        accounts: MockRepository(),
+    },
+    integrations: {
+        logs: MockLogs(),
+    },
+});
+
 describe('Find one account by id (unity test)', () => {
     test('Should return a account unity', async () => {
-        const findOneAccountByIdUseCase = new FindOneAccountByIdUseCase(MockRepository());
+        const findOneAccountByIdUseCase = new FindOneAccountByIdUseCase(MockCommons());
 
         const output = await findOneAccountByIdUseCase.execute('202020');
 

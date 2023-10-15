@@ -1,5 +1,6 @@
 import { AccountEntityInterface } from '@/domain/@shared/contracts';
 import { FilterInputDto, Hateos, PaginationOutputDto } from './custom';
+import { LogsIntegrationInterface } from '@/framework/integrations/contracts';
 
 export interface AccountsCreateInputDto {
     headers?: any;
@@ -36,4 +37,13 @@ export interface AccountsUseCaseInterface {
     findOneById(id: string): Promise<AccountsCustomOutputDto<AccountsOutputDto>>;
     findOneByEmail(email: string): Promise<AccountsCustomOutputDto<AccountsOutputDto>>;
     deleteAll(): Promise<void>;
+}
+
+export interface AccountsCommonsInterface {
+    repositories: {
+        accounts: AccountsRepositoryInterface;
+    };
+    integrations: {
+        logs: LogsIntegrationInterface;
+    };
 }
