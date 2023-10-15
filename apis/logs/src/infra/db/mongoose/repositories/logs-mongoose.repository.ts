@@ -1,10 +1,10 @@
 import { FilterInputDto, LogRepositoryInterface } from '@/application/contracts';
 import { LogMapper } from '@/application/mappers';
-import { LogEntityInterface } from '@/domain/@shared/contracts';
+import { LogsEntityInterface } from '@/domain/@shared/contracts';
 import { LogSchema } from '../schemas';
 
 export class LogMongooseRepository implements LogRepositoryInterface {
-    async create(entity: LogEntityInterface): Promise<LogEntityInterface> {
+    async create(entity: LogsEntityInterface): Promise<LogsEntityInterface> {
         const data = LogMapper.entityToDocument(entity);
 
         try {
@@ -18,7 +18,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         }
     }
 
-    async filter(input: FilterInputDto): Promise<LogEntityInterface[]> {
+    async filter(input: FilterInputDto): Promise<LogsEntityInterface[]> {
         try {
             const { query, sort, skip, limit } = input;
 
@@ -30,7 +30,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         }
     }
 
-    async findOneById(id: string): Promise<LogEntityInterface | null> {
+    async findOneById(id: string): Promise<LogsEntityInterface | null> {
         try {
             const document = await LogSchema.findById(id);
 
@@ -40,7 +40,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         }
     }
 
-    async findOneByKey(key: string): Promise<LogEntityInterface | null> {
+    async findOneByKey(key: string): Promise<LogsEntityInterface | null> {
         try {
             const document = await LogSchema.findOne({ key });
 

@@ -1,14 +1,15 @@
 import * as yup from 'yup';
 import { NotificationError } from '@/domain/@shared';
-import { LogEntityInterface, ValidatorInterface } from '@/domain/@shared/contracts';
+import { LogsEntityInterface, ValidatorInterface } from '@/domain/@shared/contracts';
 
-export class LogYupValidator implements ValidatorInterface<LogEntityInterface> {
-    validate(entity: LogEntityInterface): void {
+export class LogYupValidator implements ValidatorInterface<LogsEntityInterface> {
+    validate(entity: LogsEntityInterface): void {
         try {
             yup.object()
                 .shape({
                     origin: yup.string().required('propriedade origin requerida'),
                     key: yup.string().required('propriedade key requerida'),
+                    type: yup.string().required('propriedade type requerida'),
                     request: yup.string().required('propridade request requerida'),
                     response: yup.string().required('propridade response requerida'),
                 })
@@ -16,6 +17,7 @@ export class LogYupValidator implements ValidatorInterface<LogEntityInterface> {
                     {
                         origin: entity.origin,
                         key: entity.key,
+                        type: entity.type,
                         request: entity.request,
                         response: entity.response,
                     },

@@ -28,6 +28,10 @@ export class MainBuild {
         return this;
     }
 
+    initRequestMiddleware() {
+        return this;
+    }
+
     async initRoutes() {
         await routesConfig(app);
         return this;

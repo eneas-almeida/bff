@@ -58,6 +58,11 @@ export const envs = {
             ? parseTo(env.AGENTKEEPALIVE_FREE_SOCKET_TIMEOUT, Type.NUMBER)
             : null,
     },
+    integrations: {
+        logs: {
+            baseUrl: env.INTEGRATIONS_LOGS_BASE_URL,
+        },
+    },
 };
 
 function flatten(obj: Record<string, any>, parentKey = ''): Record<string, any> {

@@ -4,7 +4,13 @@ import { buildCustomFilter } from '@/main/helpers';
 
 export const createAccountControllerAdapter = (controller: AccountControllerInterface) => {
     return async (req: Request, res: Response) => {
-        const httpResponse = await controller.create(req.body);
+        const dataRequest = (req: any) => ({
+            headers: req.headers,
+            xRequest: req.xRequest,
+            ...req.body,
+        });
+
+        const httpResponse = await controller.create(dataRequest(req));
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };

@@ -2,6 +2,8 @@ import { AccountEntityInterface } from '@/domain/@shared/contracts';
 import { FilterInputDto, Hateos, PaginationOutputDto } from './custom';
 
 export interface AccountCreateInputDto {
+    headers?: any;
+    xRequest?: string;
     email: string;
     password: string;
 }

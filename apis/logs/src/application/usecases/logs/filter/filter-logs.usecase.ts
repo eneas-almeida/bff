@@ -1,7 +1,7 @@
 import {
     FilterInputDto,
-    LogCustomOutputDto,
-    LogOutputDto,
+    LogsCustomOutputDto,
+    LogsOutputDto,
     LogRepositoryInterface,
 } from '@/application/contracts';
 import { customOutputDto } from '@/application/helpers';
@@ -11,7 +11,7 @@ import { AppError } from '@/main/errors';
 export class FilterLogsUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}
 
-    async execute(input: FilterInputDto): Promise<LogCustomOutputDto<LogOutputDto[]>> {
+    async execute(input: FilterInputDto): Promise<LogsCustomOutputDto<LogsOutputDto[]>> {
         const entities = await this.logRepository.filter(input);
 
         if (!entities.length) {

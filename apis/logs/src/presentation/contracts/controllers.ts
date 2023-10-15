@@ -1,9 +1,9 @@
 import {
     FilterInputDto,
     HealthzOutputDto,
-    LogCreateInputDto,
-    LogCustomOutputDto,
-    LogOutputDto,
+    LogsCreateInputDto,
+    LogsCustomOutputDto,
+    LogsOutputDto,
 } from '@/application/contracts';
 import { HttpResponse } from './http';
 
@@ -12,8 +12,8 @@ export interface HealthzControllerInterface {
 }
 
 export interface LogControllerInterface {
-    create: (input: LogCreateInputDto) => Promise<HttpResponse<LogCustomOutputDto<LogOutputDto>>>;
-    filter: (input: FilterInputDto) => Promise<HttpResponse<LogCustomOutputDto<LogOutputDto[]>>>;
-    findOneById: (id: string) => Promise<HttpResponse<LogCustomOutputDto<LogOutputDto>>>;
-    findOneByKey: (key: string) => Promise<HttpResponse<LogCustomOutputDto<LogOutputDto>>>;
+    create: (input: LogsCreateInputDto) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto>>>;
+    filter: (input: FilterInputDto) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto[]>>>;
+    findOneById: (id: string) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto>>>;
+    findOneByKey: (key: string) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto>>>;
 }

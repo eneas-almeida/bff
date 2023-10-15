@@ -1,17 +1,29 @@
-import { LogEntityInterface } from '@/domain/@shared/contracts';
+import { LogsEntityInterface } from '@/domain/@shared/contracts';
 import { LogValidatorFactory } from '../factory/log-validator.factory';
 import { EntityAbstract } from '@/domain/@shared';
 
-export class LogEntity extends EntityAbstract implements LogEntityInterface {
+export class LogEntity extends EntityAbstract implements LogsEntityInterface {
     private _origin: string;
     private _key: string;
+    private _type: string;
+    private _code: string;
     private _request: string;
     private _response: string;
 
-    constructor(id: string, origin: string, key: string, request: string, response: string) {
+    constructor(
+        id: string,
+        origin: string,
+        key: string,
+        type: string,
+        code: string,
+        request: string,
+        response: string
+    ) {
         super(id);
         this._origin = origin;
         this._key = key;
+        this._type = type;
+        this._code = code;
         this._request = request;
         this._response = response;
         this.validate();
@@ -23,6 +35,14 @@ export class LogEntity extends EntityAbstract implements LogEntityInterface {
 
     get key(): string {
         return this._key;
+    }
+
+    get type(): string {
+        return this._type;
+    }
+
+    get code(): string {
+        return this._code;
     }
 
     get request(): string {
@@ -39,6 +59,14 @@ export class LogEntity extends EntityAbstract implements LogEntityInterface {
 
     setKey(value: string): void {
         this._key = value;
+    }
+
+    setType(value: string): void {
+        this._type = value;
+    }
+
+    setCode(value: string): void {
+        this._code = value;
     }
 
     setRequest(value: string): void {
