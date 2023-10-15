@@ -3,15 +3,15 @@ import { FilterInputDto, Hateos, PaginationOutputDto } from './custom';
 
 export interface AccountCreateInputDto {
     headers?: any;
-    xRequest?: string;
-    email: string;
-    password: string;
+    body: {
+        email: string;
+        password: string;
+    };
 }
 
 export interface AccountOutputDto {
     id: string;
     email: string;
-    password: string;
     createdAt: Date;
     updatedAt: Date;
 }

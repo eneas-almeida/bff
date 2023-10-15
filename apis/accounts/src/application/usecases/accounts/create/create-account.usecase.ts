@@ -20,35 +20,35 @@ export class CreateAccountUseCase {
 
             entity = await this.accountsRepository.create(entity);
 
-            const outputDto = AccountMapper.entityToDto(entity);
+            const output = AccountMapper.entityToDto(entity);
+
+            delete input.body.password;
 
             try {
                 this.logsIntegration.create({
                     origin: 'accounts',
-                    key: input.xRequest,
-                    type: 'SUCESS',
+                    key: input.headers?.key,
+                    type: 'SUCCESS',
                     code: '900',
                     request: JSON.stringify(input),
-                    response: JSON.stringify(outputDto),
+                    response: JSON.stringify(output),
                 });
-            } catch (err) {
-                throw err;
+            } finally {
+                return customOutputDto(output);
             }
-
-            return customOutputDto(outputDto);
         } catch (err) {
-            try {
-                this.logsIntegration.create({
-                    origin: 'accounts',
-                    key: input.xRequest,
-                    type: 'ERROR',
-                    code: '190',
-                    request: JSON.stringify(input),
-                    response: JSON.stringify(err),
-                });
-            } catch (_err) {
-                return;
-            }
+            delete input.body.password;
+
+            this.logsIntegration.create({
+                origin: 'accounts',
+                key: input.headers?.key,
+                type: 'FAILED',
+                code: '190',
+                request: JSON.stringify(input),
+                response: err.toString(),
+            });
+
+            throw new Error(err.message);
         }
     }
 }

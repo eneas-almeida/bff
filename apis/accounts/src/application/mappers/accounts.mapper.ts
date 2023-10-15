@@ -5,20 +5,22 @@ import { AccountFactory } from '@/domain/accounts';
 export class AccountMapper {
     static dataAnyToDto(data: any): AccountCreateInputDto {
         return {
-            email: data.email,
-            password: data.password,
+            body: {
+                email: data.email,
+                password: data.password,
+            },
         };
     }
 
     static dtoToEntity(input: AccountCreateInputDto): AccountEntityInterface {
-        return AccountFactory.create(input.email, input.password);
+        const { email, password } = input.body;
+        return AccountFactory.create(email, password);
     }
 
     static entityToDto(entity: AccountEntityInterface): AccountOutputDto {
         return {
             id: entity.id,
             email: entity.email,
-            password: entity.password,
             createdAt: entity.createdAt,
             updatedAt: entity.updatedAt,
         };

@@ -6,6 +6,7 @@ import {
     mongodbConfig,
     routesConfig,
     serverConfig,
+    requestConfig,
 } from './configs';
 
 export class MainBuild {
@@ -29,6 +30,7 @@ export class MainBuild {
     }
 
     initRequestMiddleware() {
+        requestConfig(app);
         return this;
     }
 

@@ -1,27 +1,14 @@
 import { AxiosInstance } from 'axios';
-import {
-    LogsIntegrationCreateInputDto,
-    LogsIntegrationInterface,
-    LogsIntegrationOutputDto,
-} from './contracts';
-import { FilterInputDto } from '@/application/contracts';
+import { LogsIntegrationCreateInputDto, LogsIntegrationInterface } from './contracts';
 
 export class LogsIntegration implements LogsIntegrationInterface {
     constructor(private readonly axios: AxiosInstance) {}
 
-    async create(input: LogsIntegrationCreateInputDto): Promise<LogsIntegrationOutputDto> {
-        throw new Error('Method not implemented.');
-    }
-
-    async filter(input: FilterInputDto): Promise<LogsIntegrationOutputDto[]> {
-        throw new Error('Method not implemented.');
-    }
-
-    async findOneById(id: string): Promise<LogsIntegrationOutputDto> {
-        throw new Error('Method not implemented.');
-    }
-
-    async findOneByKey(key: string): Promise<LogsIntegrationOutputDto> {
-        throw new Error('Method not implemented.');
+    create(input: LogsIntegrationCreateInputDto): void {
+        try {
+            // this.axios.post('create', input);
+        } catch (err) {
+            throw new Error(err);
+        }
     }
 }
