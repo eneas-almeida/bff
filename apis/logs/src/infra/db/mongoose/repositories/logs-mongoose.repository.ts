@@ -1,13 +1,13 @@
 import { FilterInputDto, LogRepositoryInterface } from '@/application/contracts';
-import { LogMapper } from '@/application/mappers';
+import { LogsMapper } from '@/application/mappers';
 import { LogsEntityInterface } from '@/domain/@shared/contracts';
 import { LogSchema } from '../schemas';
 
-export class LogMongooseRepository implements LogRepositoryInterface {
+export class LogsMongooseRepository implements LogRepositoryInterface {
     async create(entity: LogsEntityInterface): Promise<LogsEntityInterface> {
-        const data = LogMapper.entityToDocument(entity);
-
         try {
+            const data = LogsMapper.entityToDataAny(entity);
+
             const document = await LogSchema.create(data);
 
             entity.setId(document._id.toString());
@@ -24,7 +24,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
 
             const documents = await LogSchema.find(query).skip(skip).limit(limit).sort(sort).exec();
 
-            return documents.length ? LogMapper.documentsToEntityCollection(documents) : [];
+            return documents.length ? LogsMapper.documentsToEntityCollection(documents) : [];
         } catch (e) {
             throw new Error(e.message);
         }
@@ -34,7 +34,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         try {
             const document = await LogSchema.findById(id);
 
-            return document ? LogMapper.documentToEntity(document) : null;
+            return document ? LogsMapper.documentToEntity(document) : null;
         } catch (e) {
             throw new Error(e.message);
         }
@@ -44,7 +44,7 @@ export class LogMongooseRepository implements LogRepositoryInterface {
         try {
             const document = await LogSchema.findOne({ key });
 
-            return document ? LogMapper.documentToEntity(document) : null;
+            return document ? LogsMapper.documentToEntity(document) : null;
         } catch (e) {
             throw new Error(e.message);
         }

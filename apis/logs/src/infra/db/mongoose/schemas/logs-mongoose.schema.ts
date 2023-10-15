@@ -16,12 +16,12 @@ schema.index({ type: 1 });
 schema.index({ code: 1 });
 schema.index({ createdAt: 1 });
 
-const LogSchema = mongoose.model('log', schema, 'logs');
+const LogsSchema = mongoose.model('log', schema, 'logs');
 
-LogSchema.createIndexes().then((res) => res);
+LogsSchema.createIndexes().then((res) => res);
 
-LogSchema.on('index', (e) => {
+LogsSchema.on('index', (e) => {
     if (e) console.log(e);
 });
 
-export { LogSchema };
+export { LogsSchema as LogSchema };

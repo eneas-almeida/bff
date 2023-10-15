@@ -1,4 +1,4 @@
-import { LogMongooseRepository } from '@/infra/db/mongoose/repositories';
+import { LogsMongooseRepository } from '@/infra/db/mongoose/repositories';
 import { LogControllerInterface } from '@/presentation/contracts';
 import { LogController } from '@/presentation/controllers';
 import {
@@ -9,7 +9,7 @@ import {
 } from '@/application/usecases/logs';
 
 export const MakeLogController = async (): Promise<LogControllerInterface> => {
-    const logMongooseRepository = new LogMongooseRepository();
+    const logMongooseRepository = new LogsMongooseRepository();
 
     const createLogUseCase = new CreateLogUseCase(logMongooseRepository);
     const filterLogsFilterUseCase = new FilterLogsUseCase(logMongooseRepository);

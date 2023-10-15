@@ -1,8 +1,8 @@
 import { LogsEntityInterface } from '@/domain/@shared/contracts';
-import { LogValidatorFactory } from '../factory/log-validator.factory';
+import { LogsValidatorFactory } from '../factory/logs-validator.factory';
 import { EntityAbstract } from '@/domain/@shared';
 
-export class LogEntity extends EntityAbstract implements LogsEntityInterface {
+export class LogsEntity extends EntityAbstract implements LogsEntityInterface {
     private _origin: string;
     private _key: string;
     private _type: string;
@@ -78,6 +78,6 @@ export class LogEntity extends EntityAbstract implements LogsEntityInterface {
     }
 
     validate() {
-        LogValidatorFactory.create().validate(this);
+        LogsValidatorFactory.create().validate(this);
     }
 }

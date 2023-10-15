@@ -1,8 +1,8 @@
 import { LogsEntityInterface, ValidatorInterface } from '@/domain/@shared/contracts';
-import { LogYupValidator } from '../validator/log.validator';
+import { LogsYupValidator } from '../validator/logs.validator';
 
-export class LogValidatorFactory {
+export class LogsValidatorFactory {
     static create(): ValidatorInterface<LogsEntityInterface> {
-        return new LogYupValidator();
+        return new LogsYupValidator();
     }
 }

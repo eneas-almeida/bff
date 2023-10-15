@@ -1,11 +1,11 @@
-import { LogFactory } from '@/domain/logs';
+import { LogsFactory } from '@/domain/logs';
 import { FilterLogsUseCase } from './filter-logs.usecase';
 
 const MockRepository = () => {
     const logs = [
-        LogFactory.create('users-api', 'key101010', '{}', '{}'),
-        LogFactory.create('users-api', 'key202020', '{}', '{}'),
-        LogFactory.create('users-api', 'key303030', '{}', '{}'),
+        LogsFactory.create('users-api', 'key101010', 'SUCCESS', '300', '{}', '{}'),
+        LogsFactory.create('users-api', 'key202020', 'FAILED', '300', '{}', '{}'),
+        LogsFactory.create('users-api', 'key303030', 'SUCCESS', '300', '{}', '{}'),
     ];
 
     return {

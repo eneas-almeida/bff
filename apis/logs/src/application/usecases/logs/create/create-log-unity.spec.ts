@@ -3,6 +3,8 @@ import { CreateLogUseCase } from './create-log.usecase';
 const input = {
     origin: 'users',
     key: 'key101010',
+    type: 'SUCCESS',
+    code: '1000',
     request: '{}',
     response: '{}',
 };

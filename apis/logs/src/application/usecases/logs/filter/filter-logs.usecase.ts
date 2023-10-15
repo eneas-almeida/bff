@@ -5,7 +5,7 @@ import {
     LogRepositoryInterface,
 } from '@/application/contracts';
 import { customOutputDto } from '@/application/helpers';
-import { LogMapper } from '@/application/mappers';
+import { LogsMapper } from '@/application/mappers';
 import { AppError } from '@/main/errors';
 
 export class FilterLogsUseCase {
@@ -18,7 +18,7 @@ export class FilterLogsUseCase {
             throw new AppError('No logs found', 204);
         }
 
-        const outputDtoCollection = LogMapper.entitiesToDtoCollection(entities);
+        const outputDtoCollection = LogsMapper.entitiesToDtoCollection(entities);
 
         return customOutputDto(outputDtoCollection);
     }

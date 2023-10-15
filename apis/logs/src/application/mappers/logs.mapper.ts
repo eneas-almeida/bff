@@ -1,21 +1,28 @@
 import { LogsCreateInputDto, LogsOutputDto } from '@/application/contracts';
 import { LogsEntityInterface } from '@/domain/@shared/contracts';
-import { LogFactory } from '@/domain/logs';
+import { LogsFactory } from '@/domain/logs';
 
-export class LogMapper {
+export class LogsMapper {
     static dataAnyToDto(data: any): LogsCreateInputDto {
         return {
             origin: data.origin,
             key: data.key,
             type: data.type,
-            code: data.code,
+            code: data.code || null,
             request: data.request,
             response: data.response,
         };
     }
 
     static dtoToEntity(input: LogsCreateInputDto): LogsEntityInterface {
-        return LogFactory.create(input.origin, input.key, input.request, input.response);
+        return LogsFactory.create(
+            input.origin,
+            input.key,
+            input.type,
+            input.code || null,
+            input.request,
+            input.response
+        );
     }
 
     static entityToDto(entity: LogsEntityInterface): LogsOutputDto {
@@ -24,7 +31,7 @@ export class LogMapper {
             origin: entity.origin,
             key: entity.key,
             type: entity.type,
-            code: entity.code,
+            code: entity.code || null,
             request: entity.request,
             response: entity.response,
             createdAt: entity.createdAt,
@@ -32,20 +39,22 @@ export class LogMapper {
     }
 
     static entitiesToDtoCollection(entities: LogsEntityInterface[]): LogsOutputDto[] {
-        return entities.map((entity) => LogMapper.entityToDto(entity));
+        return entities.map((entity) => LogsMapper.entityToDto(entity));
     }
 
-    static entityToDocument(entity: LogsEntityInterface) {
+    static entityToDataAny(entity: LogsEntityInterface): any {
         return {
             origin: entity.origin,
             key: entity.key,
+            type: entity.type,
+            code: entity.code || null,
             request: entity.request,
             response: entity.response,
         };
     }
 
     static documentToEntity(doc: any): LogsEntityInterface {
-        const entity = LogFactory.create(doc.origin, doc.key, doc.request, doc.response);
+        const entity = LogsFactory.create(doc.origin, doc.key, doc.type, doc.code, doc.request, doc.response);
 
         entity.setId(doc.id);
         entity.setCreatedAt(doc.createdAt);
@@ -54,6 +63,6 @@ export class LogMapper {
     }
 
     static documentsToEntityCollection(docs: any[]): LogsEntityInterface[] {
-        return docs.map((doc) => LogMapper.documentToEntity(doc));
+        return docs.map((doc) => LogsMapper.documentToEntity(doc));
     }
 }

@@ -1,11 +1,11 @@
-import { LogFactory } from '@/domain/logs';
+import { LogsFactory } from '@/domain/logs';
 import { FindOneLogByIdUseCase } from './find-one-log-by-id.usecase';
 
 const MockRepository = () => {
     const logs = [
-        LogFactory.createWithId('101010', 'users', 'key101010', '{}', '{}'),
-        LogFactory.createWithId('202020', 'rabbit', 'key202020', '{}', '{}'),
-        LogFactory.createWithId('303030', 'photos', 'key303030', '{}', '{}'),
+        LogsFactory.create('users-api', 'key101010', 'SUCCESS', '300', '{}', '{}'),
+        LogsFactory.create('users-api', 'key202020', 'FAILED', '300', '{}', '{}'),
+        LogsFactory.create('users-api', 'key303030', 'SUCCESS', '300', '{}', '{}'),
     ];
 
     return {

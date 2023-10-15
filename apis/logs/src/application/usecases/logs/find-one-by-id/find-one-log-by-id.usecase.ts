@@ -1,6 +1,6 @@
 import { LogsCustomOutputDto, LogsOutputDto, LogRepositoryInterface } from '@/application/contracts';
 import { customOutputDto } from '@/application/helpers';
-import { LogMapper } from '@/application/mappers';
+import { LogsMapper } from '@/application/mappers';
 
 export class FindOneLogByIdUseCase {
     constructor(private readonly logRepository: LogRepositoryInterface) {}
@@ -12,7 +12,7 @@ export class FindOneLogByIdUseCase {
             throw new Error('Log not found');
         }
 
-        const outputDto = LogMapper.entityToDto(entity);
+        const outputDto = LogsMapper.entityToDto(entity);
 
         return customOutputDto(outputDto);
     }
