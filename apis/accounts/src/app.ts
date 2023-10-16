@@ -1,21 +1,20 @@
-import { MainBuild } from './main';
+import { Main } from './main';
 
-const main = new MainBuild();
+const main = new Main();
 
-main.initBanner()
-    .initEnvs()
-    .initLogger()
-    .initDB()
-    .then((res) => {
-        res.initRequestMiddleware()
-            .initRoutes()
-            .then((res) => {
-                res.initErrorMiddleware().initServer();
-            })
-            .catch((e) => {
-                throw e;
-            });
-    })
-    .catch((e) => {
-        throw new Error(e);
-    });
+const initializeApp = async () => {
+    try {
+        main.initBanner();
+        main.initEnvs();
+        await main.initCheckIntegrations();
+        await main.initDB();
+        main.initRequestMiddleware();
+        await main.initRoutes();
+        main.initErrorMiddleware();
+        main.initServer();
+    } catch (err) {
+        throw new Error(err);
+    }
+};
+
+initializeApp();
