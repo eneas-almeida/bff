@@ -13,6 +13,7 @@ const MockRepository = () => {
         filter: jest.fn(),
         findOneById: jest.fn(),
         findOneByKey: jest.fn().mockResolvedValue(logs[1]),
+        deleteAll: jest.fn(),
     };
 };
 

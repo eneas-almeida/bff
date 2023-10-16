@@ -3,18 +3,7 @@ import { LogsEntityInterface } from '@/domain/@shared/contracts';
 import { LogsFactory } from '@/domain/logs';
 
 export class LogsMapper {
-    static dataAnyToDto(data: any): LogsCreateInputDto {
-        return {
-            origin: data.origin,
-            key: data.key,
-            type: data.type,
-            code: data.code || null,
-            request: data.request,
-            response: data.response,
-        };
-    }
-
-    static dtoToEntity(input: LogsCreateInputDto): LogsEntityInterface {
+    static inputDtoToEntity(input: LogsCreateInputDto): LogsEntityInterface {
         return LogsFactory.create(
             input.origin,
             input.key,
@@ -25,7 +14,7 @@ export class LogsMapper {
         );
     }
 
-    static entityToDto(entity: LogsEntityInterface): LogsOutputDto {
+    static entityToOutputDto(entity: LogsEntityInterface): LogsOutputDto {
         return {
             id: entity.id,
             origin: entity.origin,
@@ -38,8 +27,8 @@ export class LogsMapper {
         };
     }
 
-    static entitiesToDtoCollection(entities: LogsEntityInterface[]): LogsOutputDto[] {
-        return entities.map((entity) => LogsMapper.entityToDto(entity));
+    static entitiesToOutputDtoCollection(entities: LogsEntityInterface[]): LogsOutputDto[] {
+        return entities.map((entity) => LogsMapper.entityToOutputDto(entity));
     }
 
     static entityToDataAny(entity: LogsEntityInterface): any {

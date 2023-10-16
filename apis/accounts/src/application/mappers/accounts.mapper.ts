@@ -3,15 +3,6 @@ import { AccountEntityInterface } from '@/domain/@shared/contracts';
 import { AccountFactory } from '@/domain/accounts';
 
 export class AccountMapper {
-    static dataAnyToDto(data: any): AccountsCreateInputDto {
-        return {
-            body: {
-                email: data.email,
-                password: data.password,
-            },
-        };
-    }
-
     static dtoToEntity(input: AccountsCreateInputDto): AccountEntityInterface {
         const { email, password } = input.body;
         return AccountFactory.create(email, password);

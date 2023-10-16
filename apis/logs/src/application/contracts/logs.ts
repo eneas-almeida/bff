@@ -27,9 +27,18 @@ export interface LogsCustomOutputDto<T extends LogsOutputDto | LogsOutputDto[]> 
     _links?: Hateos[];
 }
 
-export interface LogRepositoryInterface {
+export interface LogsRepositoryInterface {
     create(entity: LogsEntityInterface): Promise<LogsEntityInterface>;
     filter(input: FilterInputDto): Promise<LogsEntityInterface[]>;
     findOneById(id: string): Promise<LogsEntityInterface | null>;
     findOneByKey(key: string): Promise<LogsEntityInterface | null>;
+    deleteAll(): Promise<void>;
+}
+
+export interface LogsUseCaseInterface {
+    create(input: LogsCreateInputDto): Promise<LogsCustomOutputDto<LogsOutputDto>>;
+    filter(input: FilterInputDto): Promise<LogsCustomOutputDto<LogsOutputDto[]>>;
+    findOneById(id: string): Promise<LogsCustomOutputDto<LogsOutputDto>>;
+    findOneByKey(key: string): Promise<LogsCustomOutputDto<LogsOutputDto>>;
+    deleteAll(): Promise<void>;
 }

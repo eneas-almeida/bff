@@ -1,9 +1,9 @@
-import { FilterInputDto, LogRepositoryInterface } from '@/application/contracts';
+import { FilterInputDto, LogsRepositoryInterface } from '@/application/contracts';
 import { LogsMapper } from '@/application/mappers';
 import { LogsEntityInterface } from '@/domain/@shared/contracts';
 import { LogSchema } from '../schemas';
 
-export class LogsMongooseRepository implements LogRepositoryInterface {
+export class LogsMongooseRepository implements LogsRepositoryInterface {
     async create(entity: LogsEntityInterface): Promise<LogsEntityInterface> {
         try {
             const data = LogsMapper.entityToDataAny(entity);
@@ -45,6 +45,14 @@ export class LogsMongooseRepository implements LogRepositoryInterface {
             const document = await LogSchema.findOne({ key });
 
             return document ? LogsMapper.documentToEntity(document) : null;
+        } catch (e) {
+            throw new Error(e.message);
+        }
+    }
+
+    async deleteAll(): Promise<void> {
+        try {
+            await LogSchema.deleteMany();
         } catch (e) {
             throw new Error(e.message);
         }

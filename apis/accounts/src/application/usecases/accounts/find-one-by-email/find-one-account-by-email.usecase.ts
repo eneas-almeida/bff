@@ -5,6 +5,7 @@ import {
 } from '@/application/contracts';
 import { customOutputDto } from '@/application/helpers';
 import { AccountMapper } from '@/application/mappers';
+import { AppError } from '@/main/errors';
 
 export class FindOneAccountByEmailUseCase {
     constructor(private readonly commons: AccountsCommonsInterface) {}
@@ -13,7 +14,7 @@ export class FindOneAccountByEmailUseCase {
         const entity = await this.commons.repositories.accounts.findOneByEmail(email);
 
         if (!entity) {
-            throw new Error('Account not found');
+            throw new AppError('Account not found', 204);
         }
 
         const outputDto = AccountMapper.entityToDto(entity);

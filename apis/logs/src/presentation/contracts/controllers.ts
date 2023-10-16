@@ -11,9 +11,10 @@ export interface HealthzControllerInterface {
     handle: () => Promise<HttpResponse<HealthzOutputDto>>;
 }
 
-export interface LogControllerInterface {
+export interface LogsControllerInterface {
     create: (input: LogsCreateInputDto) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto>>>;
     filter: (input: FilterInputDto) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto[]>>>;
     findOneById: (id: string) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto>>>;
     findOneByKey: (key: string) => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto>>>;
+    deleteAll: () => Promise<HttpResponse<LogsCustomOutputDto<LogsOutputDto[]>>>;
 }

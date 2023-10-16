@@ -9,7 +9,7 @@ export class LogsIntegration implements LogsIntegrationInterface {
         try {
             return await this.axios.get(logsBaseUrl() + '/healthz');
         } catch (err) {
-            throw new Error(err);
+            throw new Error(err.message);
         }
     }
 
@@ -17,7 +17,7 @@ export class LogsIntegration implements LogsIntegrationInterface {
         try {
             this.axios.post(logsBaseUrl() + '/logs', input);
         } catch (err) {
-            throw new Error(err);
+            throw new Error(err.message);
         }
     }
 }

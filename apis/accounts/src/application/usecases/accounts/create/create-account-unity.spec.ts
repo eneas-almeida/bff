@@ -8,7 +8,7 @@ const input = {
 };
 
 const MockRepository = () => ({
-    create: jest.fn().mockReturnValue(Promise.resolve(input)),
+    create: jest.fn().mockReturnValue(Promise.resolve(input.body)),
     filter: jest.fn(),
     findOneById: jest.fn(),
     findOneByEmail: jest.fn(),

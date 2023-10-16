@@ -9,10 +9,10 @@ export const checkIntegrations = async () => {
 
         const output = await logsIntegration.healthz();
 
-        if (output.status !== 200) {
+        if (output?.status !== 200) {
             throw new Error('Logs integration is not available');
         }
     } catch (err) {
-        throw new Error(err);
+        throw err;
     }
 };

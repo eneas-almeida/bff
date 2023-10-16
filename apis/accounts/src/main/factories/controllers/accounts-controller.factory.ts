@@ -6,11 +6,11 @@ import {
 } from '@/application/contracts';
 import {
     CreateAccountUseCase,
+    DeleteAllAccountsUseCase,
     FilterAccountsUseCase,
     FindOneAccountByEmailUseCase,
     FindOneAccountByIdUseCase,
 } from '@/application/usecases/accounts';
-import { DeleteAllAccountsUseCase } from '@/application/usecases/accounts/delete-all/delete-all-accounts.usecase';
 import { LogsIntegration } from '@/framework/integrations';
 import { AccountMongooseRepository } from '@/infra/db/mongoose/repositories';
 import { AxiosHttpClient } from '@/infra/httpclients';

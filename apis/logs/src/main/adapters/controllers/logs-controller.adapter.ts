@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { LogControllerInterface } from '@/presentation/contracts';
+import { LogsControllerInterface } from '@/presentation/contracts';
 import { buildCustomFilter } from '@/main/helpers';
 
-export const createLogControllerAdapter = (controller: LogControllerInterface) => {
+export const createLogControllerAdapter = (controller: LogsControllerInterface) => {
     return async (req: Request, res: Response) => {
         const httpResponse = await controller.create(req.body);
 
@@ -10,7 +10,7 @@ export const createLogControllerAdapter = (controller: LogControllerInterface) =
     };
 };
 
-export const filterLogsControllerAdapter = (controller: LogControllerInterface) => {
+export const filterLogsControllerAdapter = (controller: LogsControllerInterface) => {
     return async (req: Request, res: Response) => {
         const input = buildCustomFilter(req.query);
 
@@ -20,7 +20,7 @@ export const filterLogsControllerAdapter = (controller: LogControllerInterface) 
     };
 };
 
-export const findOneLogByIdControllerAdapter = (controller: LogControllerInterface) => {
+export const findOneLogByIdControllerAdapter = (controller: LogsControllerInterface) => {
     return async (req: Request, res: Response) => {
         const { id } = req.params;
 
@@ -30,11 +30,19 @@ export const findOneLogByIdControllerAdapter = (controller: LogControllerInterfa
     };
 };
 
-export const findOneLogByKeyControllerAdapter = (controller: LogControllerInterface) => {
+export const findOneLogByKeyControllerAdapter = (controller: LogsControllerInterface) => {
     return async (req: Request, res: Response) => {
         const { key } = req.params;
 
         const httpResponse = await controller.findOneByKey(key);
+
+        res.status(httpResponse.statusCode).json(httpResponse.body);
+    };
+};
+
+export const deleteAllLogsControllerAdapter = (controller: LogsControllerInterface) => {
+    return async (_req: Request, res: Response) => {
+        const httpResponse = await controller.deleteAll();
 
         res.status(httpResponse.statusCode).json(httpResponse.body);
     };

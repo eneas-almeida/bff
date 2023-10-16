@@ -14,6 +14,7 @@ const MockRepository = () => ({
     filter: jest.fn(),
     findOneById: jest.fn(),
     findOneByKey: jest.fn(),
+    deleteAll: jest.fn(),
 });
 
 describe('Create log (unity test)', () => {

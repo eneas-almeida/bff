@@ -8,6 +8,5 @@ export interface LogsIntegrationCreateInputDto {
 }
 
 export interface LogsIntegrationInterface {
-    healthz(): Promise<any>;
     create(input: LogsIntegrationCreateInputDto): void;
 }

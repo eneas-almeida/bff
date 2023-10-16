@@ -36,6 +36,6 @@ describe('Find one account by id (unity test)', () => {
 
         const output = await findOneAccountByIdUseCase.execute('202020');
 
-        expect(output.data.email).toEqual('tiago@gmail.com');
+        expect(output.data.email).toEqual('tiago2@gmail.com');
     });
 });

@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import {
-    findOneLogByIdControllerAdapter,
     createLogControllerAdapter,
+    deleteAllLogsControllerAdapter,
     filterLogsControllerAdapter,
+    findOneLogByIdControllerAdapter,
     findOneLogByKeyControllerAdapter,
 } from '../adapters/controllers';
 import { envs } from '../configs';
@@ -17,6 +18,7 @@ export default async (router: Router): Promise<void> => {
     router.get(`/${basePath}`, filterLogsControllerAdapter(makeLogController));
     router.get(`/${basePath}/:id`, findOneLogByIdControllerAdapter(makeLogController));
     router.get(`/${basePath}/key/:key`, findOneLogByKeyControllerAdapter(makeLogController));
+    router.delete(`/${basePath}`, deleteAllLogsControllerAdapter(makeLogController));
 
     const baseRoute = `${envs.api.version}/${basePath}`;
 
@@ -25,4 +27,5 @@ export default async (router: Router): Promise<void> => {
     console.log(`[ok] ${baseRoute} (GET)`);
     console.log(`[ok] ${baseRoute}/:id (GET)`);
     console.log(`[ok] ${baseRoute}/key/:key (GET)`);
+    console.log(`[ok] ${baseRoute} (DELETE)`);
 };
